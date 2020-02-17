@@ -1,0 +1,73 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { ShellComponent } from './shell.component';
+import { HeaderComponent } from './header/header.component';
+import { NavbarComponent } from '@app/ui-components/navbar/navbar.component';
+import { SidebarComponent } from '@app/ui-components/sidebar/sidebar.component';
+import { FooterComponent } from '@app/ui-components/footer/footer.component';
+import { DashboardComponent } from '@app/ui-components/dashboard/dashboard.component';
+import { FormsComponent } from '@app/ui-components/forms/forms.component';
+import { ButtonsComponent } from '@app/ui-components/buttons/buttons.component';
+import { TablesComponent } from '@app/ui-components/tables/tables.component';
+import { TypographyComponent } from '@app/ui-components/typography/typography.component';
+import { IconsComponent } from '@app/ui-components/icons/icons.component';
+import { AlertsComponent } from '@app/ui-components/alerts/alerts.component';
+import { AccordionsComponent } from '@app/ui-components/accordions/accordions.component';
+import { BadgesComponent } from '@app/ui-components/badges/badges.component';
+import { ProgressbarComponent } from '@app/ui-components/progressbar/progressbar.component';
+import { BreadcrumbsComponent } from '@app/ui-components/breadcrumbs/breadcrumbs.component';
+import { PaginationComponent } from '@app/ui-components/pagination/pagination.component';
+import { DropdownComponent } from '@app/ui-components/dropdown/dropdown.component';
+import { TooltipsComponent } from '@app/ui-components/tooltips/tooltips.component';
+import { CarouselComponent } from '@app/ui-components/carousel/carousel.component';
+import { TabsComponent } from '@app/ui-components/tabs/tabs.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '@env/environment';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from '@app/core';
+import { SharedModule } from '@app/shared';
+import { HomeModule } from '@app/home/home.module';
+import { LoginModule } from '@app/login/login.module';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    TranslateModule,
+    NgbModule,
+    RouterModule,
+    FormsModule,
+    HttpClientModule,
+    CoreModule
+  ],
+  declarations: [
+    HeaderComponent,
+    ShellComponent,
+    // TODO need to remove once we are done with components.
+    NavbarComponent,
+    SidebarComponent,
+    FooterComponent,
+    DashboardComponent,
+    FormsComponent,
+    ButtonsComponent,
+    TablesComponent,
+    TypographyComponent,
+    IconsComponent,
+    AlertsComponent,
+    AccordionsComponent,
+    BadgesComponent,
+    ProgressbarComponent,
+    BreadcrumbsComponent,
+    PaginationComponent,
+    DropdownComponent,
+    TooltipsComponent,
+    CarouselComponent,
+    TabsComponent
+  ]
+})
+export class ShellModule {}
