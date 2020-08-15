@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -9,6 +9,13 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class NavbarComponent implements OnInit {
   public sidebarOpened = false;
+  @Output() messageSidebarOpened = new EventEmitter<string>();
+  @Input() opened: boolean;
+
+  constructor(config: NgbDropdownConfig) {
+    config.placement = 'bottom-right';
+  }
+
   toggleOffcanvas() {
     this.sidebarOpened = !this.sidebarOpened;
     if (this.sidebarOpened) {
@@ -17,8 +24,12 @@ export class NavbarComponent implements OnInit {
       document.querySelector('.sidebar-offcanvas').classList.remove('active');
     }
   }
-  constructor(config: NgbDropdownConfig) {
-    config.placement = 'bottom-right';
-  }
+
   ngOnInit() {}
+
+  public toggleSidebar() {
+    this.opened = !this.opened;
+    this.messageSidebarOpened.emit(this.opened.toString());
+    console.log('set value navbar:', this.opened);
+  }
 }

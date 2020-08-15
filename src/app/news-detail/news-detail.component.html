@@ -1,0 +1,59 @@
+<div>
+  <div class="card card-weather">
+    <div class="card-body transmission-rate-section symptom-heading-section">
+      <div style="flex-grow: 1;">
+        <p-dropdown
+          [options]="newsDiffType"
+          [(ngModel)]="newsType"
+          placeholder="{{ newsType }}"
+          optionLabel="name"
+          [showClear]="true"
+          (ngModelChange)="selectNewsModal(newsType)"
+        >
+        </p-dropdown>
+      </div>
+      <div
+        routerLink="/home"
+        style="
+          font-size: 13px;
+          display: flex;
+          justify-content: center;
+          cursor: pointer;
+          color: rgb(88, 133, 232);
+          align-items: center;
+      "
+      >
+        Check Situation <i class="mdi mdi-arrow-right"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="news-detail" id="news-detail-news-cards">
+  <div *ngFor="let news of news; let index">
+    <header *ngIf="showDateHeader(news.publishedAt)">
+      <time>
+        <h5 class="news-published" id="date">
+          {{ news.publishedAt | date: 'fullDate' }}
+        </h5>
+        <!--        <h3 id="day">Today</h3>-->
+      </time>
+    </header>
+    <div
+      class="row"
+      [ngClass]="index === 1 ? 'news-article-card-top' : 'news-article-card'"
+    >
+      <div class="news-card xl card-xl-set">
+        <section class="wrapper">
+          <img class="news-img" src="{{ news.urlToImage }}" alt="" />
+          <footer class="news-card-footer">
+            <h6>{{ news.title }}</h6>
+            <!--            <h4>Stitch Screenshots the Easy Way</h4>-->
+            <p>{{ news.content === null ? news.description : news.content }}</p>
+          </footer>
+        </section>
+        <div class="content"></div>
+      </div>
+    </div>
+  </div>
+</main>

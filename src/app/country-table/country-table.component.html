@@ -1,0 +1,162 @@
+<p-table
+  *ngIf="country"
+  #dt
+  [value]="country"
+  [(selection)]="selectedCountry"
+  dataKey="id"
+  styleClass="ui-table-customers"
+  [rowHover]="true"
+  [rows]="10"
+  [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  [paginator]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [filterDelay]="0"
+  sortField="TotalConfirmed"
+  sortOrder="-1"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th></th>
+      <th pSortableColumn="label">
+        Country <p-sortIcon field="label"></p-sortIcon>
+      </th>
+      <th class="th-head" pSortableColumn="TotalConfirmed">
+        Confirmed <p-sortIcon field="TotalConfirmed"></p-sortIcon>
+      </th>
+      <th class="th-head" pSortableColumn="TotalRecovered">
+        Recovered <p-sortIcon field="TotalRecovered"></p-sortIcon>
+      </th>
+      <th class="th-head" pSortableColumn="TotalDeaths">
+        Deaths <p-sortIcon field="TotalDeaths"></p-sortIcon>
+      </th>
+      <th class="th-head-bar">
+        Confirmed(%)
+      </th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>
+        <input
+          pInputText
+          type="text"
+          (input)="dt.filter($event.target.value, 'label', 'startsWith')"
+          placeholder="Search by Country"
+          class="search-country ui-column-filter"
+        />
+      </th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-customer>
+    <tr
+      class="ui-selectable-row"
+      [ngClass]="customer.label === 'World' ? 'add-bg-color' : ''"
+    >
+      <td></td>
+      <td>
+        <span class="ui-column-title">Country</span>
+        <img
+          *ngIf="customer.value !== 'World'"
+          [alt]="customer.value"
+          src="https://www.countryflags.io/{{
+            customer.value.toLowerCase()
+          }}/shiny/64.png"
+          width="32"
+        />
+        <img
+          *ngIf="customer.value === 'World'"
+          src="../../assets/images/home/earth-icon-vector.png"
+          style="width:16px;vertical-align:middle"
+        />
+        <span style="vertical-align: middle; margin-left: .5em">{{
+          customer.label
+        }}</span>
+      </td>
+      <td>
+        <span class="ui-column-title">Confirmed</span>
+        {{ customer.TotalConfirmed }}
+      </td>
+      <td>
+        <span class="ui-column-title">Recovered</span>
+        <span>{{ customer.TotalRecovered }}</span>
+      </td>
+      <td>
+        <span class="ui-column-title">Deaths</span>
+        {{ customer.TotalDeaths }}
+        <span class="text-danger">
+          <span class="fatality-rate-perc"
+            >({{
+              ((customer.TotalDeaths / customer.TotalConfirmed) * 100).toFixed(
+                2
+              )
+            }}%)</span
+          >
+        </span>
+      </td>
+      <td>
+        <div class="progress progress-lg mt-2">
+          <div
+            aria-valuemax="100"
+            aria-valuemin="0"
+            class="progress-bar bg-danger"
+            role="progressbar"
+            [ngStyle]="{ width: showBarValue(customer) + '%' }"
+          ></div>
+        </div>
+        {{
+          ((customer.TotalConfirmed / globalData.TotalConfirmed) * 100).toFixed(
+            2
+          )
+        }}
+        %
+      </td>
+      <td>
+        <i
+          *ngIf="customer.label !== 'World'"
+          (click)="showDetailCountryData(customer)"
+          class="mdi mdi-arrow-right-drop-circle-outline"
+        ></i>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8" style="text-align:left">No country found.</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<jw-modal id="custom-modal-1" *ngIf="selectedCountryDetails">
+  <div>
+    <div class="dashboard-header">
+      <div>
+        <img
+          class="img-flag-header"
+          src="https://www.countryflags.io/{{
+            selectedCountryDetails.value
+          }}/shiny/64.png"
+        />
+      </div>
+      <h3 style="flex-grow: 1; margin-left: 10px;">
+        {{ selectedCountryDetails.label }}
+      </h3>
+      <i
+        style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
+        (click)="closeModal('custom-modal-1')"
+        class="mdi mdi-close text-danger icon-lg"
+      ></i>
+    </div>
+    <!--    {{closePredictiveModal}}-->
+
+    <app-country-wise-modal
+      *ngIf="selectedCountryDetails && globalData"
+      [selectedCountryDetails]="selectedCountryDetails"
+      [globalDetails]="globalData"
+      [predictiveModal]="closePredictiveModal"
+    ></app-country-wise-modal>
+  </div>
+</jw-modal>

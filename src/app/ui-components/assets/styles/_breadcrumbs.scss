@@ -16,7 +16,8 @@
     .breadcrumb-item {
       font-size: $breadcrumb-font-size;
       background: $breadcrumb-item-bg;
-      padding: $breadcrumb-custom-item-padding-y $breadcrumb-custom-item-padding-x;
+      padding: $breadcrumb-custom-item-padding-y
+        $breadcrumb-custom-item-padding-x;
       color: $breadcrumb-custom-item-color;
       display: inline-block;
       vertical-align: top;

@@ -1,0 +1,165 @@
+<div>
+  <div class="card card-weather">
+    <div class="card-body transmission-rate-section symptom-heading-section">
+      <div class="about-heading">
+        COVID-19 Coronavirus - Calculator.
+      </div>
+      <div
+        style="font-size: 13px;
+    cursor: pointer;
+    color: rgb(88, 133, 232);"
+        routerLink="/home"
+      >
+        Check Situation <i class="mdi mdi-arrow-right"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-7 grid-margin stretch-card">
+    <!--weather card-->
+    <div class="card card-weather">
+      <div class="card-body transmission-rate-section">
+        <div class="row">
+          <iframe
+            id="theFrame"
+            src="https://www.covid19survivalcalculator.com/en/calculator"
+            style="width:100%; height: 150vh;"
+            frameborder="0"
+          >
+          </iframe>
+        </div>
+      </div>
+    </div>
+    <!--weather card ends-->
+  </div>
+  <div class="col-lg-5 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <iframe
+          style="width: 100%;
+          height: 300px;"
+          class="embed-responsive-item"
+          src="https://www.youtube.com/embed/3xF2Ihjwbpw?rel=0"
+          allowfullscreen=""
+        >
+        </iframe>
+        <div class="about-heading symptom-what-to-do">
+          What is this calculator ?
+        </div>
+        <span class="no-vaccine">
+          * This project is not the part of this website, I have incorporated
+          the calculator to make people aware and to be informed, But we have to
+          take precaution no matter what this calculator predicts or say.<br />
+          Hope everyone is safe and doing their best because that's what is
+          demanded from the humanity right now.
+        </span>
+        <div class="comparison">
+          <div class="major-symptoms">
+            This project was created and managed by the data research team at
+            Nexoid. Nexoid is a software company located in London, United
+            Kingdom. We have skills in research, analysis, and computer science.
+            We are not medical professionals.
+            <br />
+            The service we provide is based on a changing statistical model.
+            This model is continuously being updated to produce the most
+            accurate predictions possible. If you want to know more about how
+            the model works, please go to the research section of this website.
+          </div>
+          <p
+            style="
+            font-weight: 100;
+            font-size: 14px;
+            margin-top: 20px;"
+          ></p>
+          About calculator:
+          <ul class="list-ticked">
+            <li>
+              Filling in the calculator gives you an insight into your own
+              personal risk as well as providing data that will assist
+              researchers around the world.
+            </li>
+            <li>
+              We have made the raw data available for download. The more people
+              analyzing and working with this dataset, the more likely we are to
+              discover something that will save lives.<br />
+              <a
+                href="https://www.covid19survivalcalculator.com/en/download"
+                target="_blank"
+                class="primary"
+                >Download</a
+              >
+            </li>
+            <li>
+              Limit Contact When Running Errands: Only visit stores selling
+              household essentials in person when you absolutely need to, and
+              stay at least 6 feet away from others who are not from your
+              household while shopping and in lines. If possible, use
+              drive-thru, curbside pick-up, or delivery services to limit
+              face-to-face contact with others.
+            </li>
+            <li>
+              Data and privacy: This calculator estimates your risk of infection
+              and mortality from COVID-19. To do this we use the data you are
+              about to enter on this page and your location (derived from your
+              IP address). There is no other data being collected.
+            </li>
+            <li>
+              The data collected is added to a free dataset which can be
+              downloaded by anyone from this website. The dataset is critical
+              for researchers to understand and fight COVID-19. Your data will
+              help save lives.
+            </li>
+          </ul>
+          <div class="other-symptoms">
+            <div class="about-heading">
+              Quick Links
+            </div>
+            <div class="about-quick-link">
+              <span class="quick-link">
+                <a
+                  href="https://www.covid19survivalcalculator.com/"
+                  target="_blank"
+                >
+                  Website link
+                </a>
+              </span>
+              <i class="mdi mdi-arrow-right"></i>
+            </div>
+            <div class="about-quick-link">
+              <span class="quick-link">
+                Prevention of coronavirus
+              </span>
+              <i class="mdi mdi-arrow-right"></i>
+            </div>
+            <div class="about-quick-link">
+              <span class="quick-link">
+                Learn more on who
+              </span>
+              <i class="mdi mdi-arrow-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<jw-modal id="custom-modal-1">
+  <div>
+    <div class="dashboard-header">
+      <i
+        style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
+        (click)="closeModal('custom-modal-1')"
+        class="mdi mdi-close text-danger icon-lg"
+      ></i>
+    </div>
+    <iframe
+      id="theFrame"
+      src="https://www.washingtonpost.com/graphics/2020/world/corona-simulator/"
+      style="width:100%; height: 90vh;"
+      frameborder="0"
+    >
+    </iframe>
+  </div>
+</jw-modal>

@@ -17,10 +17,11 @@ import { DropdownComponent } from '@app/ui-components/dropdown/dropdown.componen
 import { TooltipsComponent } from '@app/ui-components/tooltips/tooltips.component';
 import { CarouselComponent } from '@app/ui-components/carousel/carousel.component';
 import { TabsComponent } from '@app/ui-components/tabs/tabs.component';
+import { TransRateComponent } from '@app/trans-rate/trans-rate.component';
 
 const routes: Routes = [
   Shell.childRoutes([
-    { path: 'about', loadChildren: './about/about.module#AboutModule' },
+    { path: 'trans-rate', component: TransRateComponent },
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     // TODO Below urls are just for reff purpose need to delete it once it is done.
     { path: 'dashboard', component: DashboardComponent },
@@ -45,7 +46,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
   exports: [RouterModule],
   providers: []
 })

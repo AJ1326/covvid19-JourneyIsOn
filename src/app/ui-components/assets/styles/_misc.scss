@@ -24,7 +24,8 @@ html {
 }
 
 .main-panel {
-  transition: width $action-transition-duration $action-transition-timing-function,
+  transition: width $action-transition-duration
+      $action-transition-timing-function,
     margin $action-transition-duration $action-transition-timing-function;
   width: calc(100% - #{$sidebar-width-lg});
   min-height: calc(100vh - #{$navbar-height});

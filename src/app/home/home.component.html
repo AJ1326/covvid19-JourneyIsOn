@@ -1,10 +1,339 @@
-<div class="container-fluid">
-  <div class="jumbotron text-center">
-    <h1>
-      <img class="logo" src="assets/ngx-rocket-logo.png" alt="angular logo" />
-      <span translate>Hello world !</span>
-    </h1>
-    <app-loader [isLoading]="isLoading"></app-loader>
-    <q [hidden]="isLoading">{{ quote }}</q>
+<div class="row">
+  <div class="col-md-4 grid-margin stretch-card" style="width: 100%;">
+    <div class="card" *ngIf="summary">
+      <div class="card-body">
+        <div class="container-world-heading">
+          <img
+            class="world-img-vector"
+            src="../../assets/images/home/earth-icon-vector.png"
+            alt=""
+          />
+          <div class="section-world-heading">
+            <h2 class="card-title text-primary">Woldwide</h2>
+            <p>Last updated on {{ summary.Date | date }}</p>
+          </div>
+        </div>
+        <div class="row-data-cases">
+          <div class="item tall">
+            <div class="cases-data">
+              <img class="img_case" src="../../assets/images/home/virus.png" />
+              <p></p>
+            </div>
+            <p>{{ summary.Global.TotalConfirmed }}</p>
+          </div>
+          <div class="divider"></div>
+          <div class="item">
+            <div class="cases-data">
+              <img
+                class="img_case"
+                src="../../assets/images/home/patient.png"
+              />
+              <p></p>
+            </div>
+            <p>{{ summary.Global.TotalRecovered }}</p>
+          </div>
+          <div class="divider"></div>
+          <div class="item">
+            <div class="cases-data" class="cases-data">
+              <img class="img_case" src="../../assets/images/home/death.png" />
+              <p></p>
+            </div>
+            <p>{{ summary.Global.TotalDeaths }}</p>
+          </div>
+        </div>
+        <div style="margin-top: 20px;">
+          <p-dropdown
+            [style]="{ width: '100%' }"
+            [options]="countryDetails"
+            [(ngModel)]="selectedCountry"
+            (ngModelChange)="selectCountryModal(selectedCountry)"
+            filter="true"
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <img
+                *ngIf="item.value === 'World'"
+                src="../../assets/images/home/earth-icon-vector.png"
+                style="width:16px;vertical-align:middle"
+              />
+              <img
+                *ngIf="item.value !== 'World'"
+                src="https://www.countryflags.io/{{
+                  item.value.toLowerCase()
+                }}/shiny/64.png"
+                style="width:16px;vertical-align:middle"
+              />
+              <span style="vertical-align:middle; margin-left: .5em">{{
+                item.label
+              }}</span>
+            </ng-template>
+            <ng-template let-cntry pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative;height: 25px;"
+              >
+                <img
+                  *ngIf="cntry.value !== 'World'"
+                  src="https://www.countryflags.io/{{
+                    cntry.value.toLowerCase()
+                  }}/shiny/64.png"
+                  style="width:24px;position:absolute;top:1px;left:5px"
+                />
+                <img
+                  *ngIf="cntry.value === 'World'"
+                  src="../../assets/images/home/earth-icon-vector.png"
+                  style="width:24px;position:absolute;top:1px;left:5px"
+                />
+                <div style="font-size:14px;float:right;margin-top:4px">
+                  {{ cntry.label }}
+                </div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+          <!--          <p>Selected Country: {{ selectedCountry || 'none' }}</p>-->
+        </div>
+        <div
+          style="margin-top: 45px;"
+          *ngIf="selectedCountryData && selectedCountry !== 'World'"
+        >
+          <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card card-statistics">
+                <div class="card-body-country">
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <img
+                        style="width: 35px;"
+                        src="../../assets/images/country-wise/virus_covid.png"
+                      />
+                    </div>
+                    <div class="float-right">
+                      <p class="mb-0 text-right">Total Confirmed</p>
+                      <div class="fluid-container">
+                        <h3 class="font-weight-medium text-right mb-0">
+                          {{ selectedCountryData['TotalConfirmed'] }}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-muted mt-3 mb-0">
+                    <i
+                      class="mdi mdi-alert-octagon mr-1"
+                      aria-hidden="true"
+                    ></i>
+                    {{ selectedCountryData['NewConfirmed'] }} new people
+                    infected today.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card card-statistics">
+                <div class="card-body-country">
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <img
+                        style="width: 35px;"
+                        src="../../assets/images/country-wise/confirm.png"
+                      />
+                    </div>
+                    <div class="float-right">
+                      <p class="mb-0 text-right">Total Recovered</p>
+                      <div class="fluid-container">
+                        <h3 class="font-weight-medium text-right mb-0">
+                          {{ selectedCountryData['TotalRecovered'] }}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-muted mt-3 mb-0">
+                    <i
+                      class="mdi mdi-alert-octagon mr-1"
+                      aria-hidden="true"
+                    ></i>
+                    {{ selectedCountryData['NewRecovered'] }} have been
+                    recovered today.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card card-statistics">
+                <div class="card-body-country">
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <img
+                        style="width: 35px;"
+                        src="../../assets/images/country-wise/death_covid19.png"
+                      />
+                    </div>
+                    <div class="float-right">
+                      <p class="mb-0 text-right">Total Deaths</p>
+                      <div class="fluid-container">
+                        <h3 class="font-weight-medium text-right mb-0">
+                          {{ selectedCountryData['TotalDeaths'] }}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-muted mt-3 mb-0">
+                    <i
+                      class="mdi mdi-alert-octagon mr-1"
+                      aria-hidden="true"
+                    ></i>
+                    We have lost {{ selectedCountryData['NewDeaths'] }} people
+                    due to covid19.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="col-md-6 grid-margin stretch-card"
+              style="box-shadow: 1px 0px 7px 0px #00000024; cursor: pointer;"
+              (click)="showDetailCountryData()"
+            >
+              <div class="card card-statistics">
+                <div class="card-body-country">
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <img
+                        style="width: 35px;"
+                        src="../../assets/images/country-wise/stay-at-home.png"
+                      />
+                    </div>
+                    <div class="float-right">
+                      <p class="mb-0 text-right"></p>
+                      <div class="fluid-container">
+                        <h3 class="font-weight-medium text-right mb-0"></h3>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-muted mt-3 mb-0">
+                    <i
+                      class="mdi mdi-alert-octagon mr-1"
+                      aria-hidden="true"
+                    ></i>
+                    <span style="color: dodgerblue;"
+                      >Checkout how {{ selectedCountryData.label }} is
+                      performing.</span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="newscard" style="cursor: pointer;" (click)="showNews()">
+          <div class="clearfix">
+            <div class="float-left">
+              <img
+                style="width: 35px;"
+                src="../../assets/images/country-wise/news.png"
+              />
+            </div>
+            <div class="float-right">
+              <p class="mb-0 text-right" style="color: dodgerblue;">
+                Checkout the top news.
+              </p>
+              <div class="fluid-container">
+                <h3 class="font-weight-medium text-right mb-0">
+                  {{
+                    selectedCountryData ? selectedCountryData.label : 'World'
+                  }}
+                </h3>
+              </div>
+            </div>
+          </div>
+          <p class="text-muted mt-3 mb-0 newscardtag">
+            <span class="newscardtag-img">
+              <img
+                style="width: 30px;"
+                src="../../assets/images/country-wise/live.png"
+              />
+            </span>
+            <span style="color: black;">#StayUpdated</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8 grid-margin stretch-card showing-map-data">
+    <!--    <div class="card">-->
+    <!--      <div class="card-body">-->
+    <div class="container-world-heading">
+      <img
+        class="world-img-vector"
+        src="../../assets/images/home/earth-icon-vector.png"
+        alt=""
+      />
+      <div class="section-world-heading">
+        <h2 class="card-title text-primary">Woldwide</h2>
+        <p>
+          *This data is different as we are mapping multiple resources from
+          different places.
+        </p>
+      </div>
+    </div>
+    <div>
+      <app-world-map></app-world-map>
+      <!--          <div id="regions_div" style="width: 900px; height: 500px;"></div>-->
+    </div>
+    <!--      </div>-->
+    <!--    </div>-->
   </div>
 </div>
+<div class="row">
+  <div class="grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="container-world-heading">
+          <img
+            class="world-img-vector"
+            src="../../assets/images/home/earth-icon-vector.png"
+            alt=""
+          />
+          <div class="section-world-heading">
+            <h2 class="card-title text-primary">Woldwide</h2>
+            <p>
+              How all the countries are performing in this covid19 situation ?
+            </p>
+          </div>
+        </div>
+        <div>
+          <app-country-table
+            *ngIf="countryDetails"
+            [countryDetails]="countryDetails"
+            [globalDetails]="globalDetails"
+          ></app-country-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<jw-modal id="custom-modal-1" *ngIf="selectedCountryData">
+  <div>
+    <div class="dashboard-header">
+      <div>
+        <img
+          class="img-flag-header"
+          src="https://www.countryflags.io/{{
+            selectedCountryData.value
+          }}/shiny/64.png"
+        />
+      </div>
+      <h3 style="flex-grow: 1; margin-left: 10px;">
+        {{ selectedCountryData.label }}
+      </h3>
+      <i
+        style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
+        (click)="closeModal('custom-modal-1')"
+        class="mdi mdi-close text-danger icon-lg"
+      ></i>
+    </div>
+    <app-country-wise-modal
+      *ngIf="selectedCountryData && globalDetails"
+      [selectedCountryDetails]="selectedCountryData"
+      [globalDetails]="globalDetails"
+    ></app-country-wise-modal>
+  </div>
+</jw-modal>

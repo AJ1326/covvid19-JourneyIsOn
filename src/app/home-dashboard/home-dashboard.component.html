@@ -1,0 +1,222 @@
+<div class="app">
+  <header class="header">
+    <div class="header__left">
+      <span
+        >Covid19: We are in this together, and we will get through this
+        together.</span
+      >
+    </div>
+    <div class="header__right">
+      <p>{{ date | date: 'fullDate' }}</p>
+    </div>
+  </header>
+
+  <main class="main">
+    <article class="section" id="vienna" data-section>
+      <header
+        class="section__header"
+        style="background-image: url('../../assets/images/home-dashboard/covidbg.jpg');"
+      >
+        <h1 class="section__title" style="color: white;">Social distancing</h1>
+        <p class="section__subtitle" style="color: white;">
+          Effective execution of social distancing is the only viable solution.
+        </p>
+        <!--        <div class="section__controls">-->
+        <!--          <div class="user">-->
+        <!--            <img-->
+        <!--              src="../../assets/images/home-dashboard/journeyLogo.jpg"-->
+        <!--              class="user__img"-->
+        <!--              alt=""-->
+        <!--            />-->
+        <!--            <span class="user__name" style="color: white;">#JourneyIsOn</span>-->
+        <!--          </div>-->
+        <!--        </div>-->
+      </header>
+      <div class="section__content">
+        <ul class="boxgrid">
+          <li class="boxgrid__item boxgrid__item--wide">
+            <a routerLink="/my-india" class="box box--image">
+              <p class="world-impact">
+                My India
+              </p>
+              <img
+                src="https://source.unsplash.com/300x300/?india"
+                class="box__img"
+                alt=""
+              />
+            </a>
+          </li>
+          <li class="boxgrid__item">
+            <a routerLink="/home" class="box box--weather">
+              <p>How your country is performing ?</p>
+            </a>
+          </li>
+          <li class="boxgrid__item boxgrid__item--wide">
+            <a
+              (click)="openCovid19Video('pandemicOver', true)"
+              class="box box--image"
+            >
+              <p class="world-impact">
+                When this pendemic will be over ?
+              </p>
+              <img
+                src="../../assets/images/dashboard/covid-world.jpg"
+                class="box__img"
+                alt=""
+              />
+            </a>
+          </li>
+          <li
+            class="boxgrid__item boxgrid__item--wide"
+            (click)="openCovid19Video('vaccine', true)"
+          >
+            <a class="box box--video box--life">
+              <p class="world-impact">Vaccine ?</p>
+              <img
+                src="https://source.unsplash.com/300x300/?vaccine"
+                class="box__img"
+                alt=""
+              />
+            </a>
+          </li>
+          <li class="boxgrid__item">
+            <a routerLink="/covid-calculator" class="box box--cost">
+              <p>COVID-19 (Coronavirus) Survival Calculator</p>
+            </a>
+          </li>
+          <li
+            class="boxgrid__item boxgrid__item--wide"
+            (click)="openCovid19Video('whatIsCovid', true)"
+          >
+            <a class="box box--video">
+              <p class="world-impact">What is covid19 ?</p>
+              <img
+                src="https://source.unsplash.com/300x300/?covid"
+                class="box__img"
+                alt=""
+              />
+            </a>
+          </li>
+          <li class="boxgrid__item">
+            <a
+              routerLink="/social-distancing"
+              class="box box--locations social_distancing_box"
+            >
+              <p>Social Distancing : why ? what ? and how ?</p>
+            </a>
+          </li>
+          <li class="boxgrid__item">
+            <a
+              routerLink="/economy-impact"
+              class="box box--weather economy_box"
+            >
+              <p>How it's going to effect economy ?</p>
+            </a>
+          </li>
+          <li class="boxgrid__item">
+            <a routerLink="/what-to-do" class="box box--locations">
+              <p>What do to ?</p>
+            </a>
+          </li>
+          <li
+            class="boxgrid__item boxgrid__item--wide"
+            (click)="openCovid19Video('lifeProspective', true)"
+          >
+            <a class="box box--video box--life">
+              <p class="world-impact">Giving life a prospective.</p>
+              <img
+                src="https://source.unsplash.com/300x300/?thought"
+                class="box__img"
+                alt=""
+              />
+            </a>
+          </li>
+          <li class="boxgrid__item">
+            <a routerLink="/how-to-stay-mentally-fit" class="box box--cost">
+              <p>How to stay mentally fit ?</p>
+            </a>
+          </li>
+          <li class="boxgrid__item">
+            <a routerLink="/symptoms" class="box box--locations symptom_box">
+              <p>Coronavirus: Symptoms/Prevention</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </main>
+
+  <jw-modal
+    id="{{ setID }}"
+    *ngIf="covidVideo || lifeProspective || vaccine || pandemicOver"
+  >
+    <div *ngIf="covidVideo">
+      <div class="dashboard-header">
+        <i
+          style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
+          (click)="closeCovid19Video('whatIsCovid', false)"
+          class="mdi mdi-close text-danger icon-lg"
+        ></i>
+      </div>
+      <iframe
+        style="width: 100%;
+          height: 650px;"
+        class="embed-responsive-item"
+        src="https://www.youtube.com/embed/D9tTi-CDjDU?rel=0"
+        allowfullscreen=""
+      >
+      </iframe>
+    </div>
+    <div *ngIf="lifeProspective">
+      <div class="dashboard-header">
+        <i
+          style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
+          (click)="closeCovid19Video('lifeProspective', false)"
+          class="mdi mdi-close text-danger icon-lg"
+        ></i>
+      </div>
+      <iframe
+        style="width: 100%;
+          height: 650px;"
+        class="embed-responsive-item"
+        src="https://www.youtube.com/embed/E44kFkyl_Y8?rel=0"
+        allowfullscreen=""
+      >
+      </iframe>
+    </div>
+    <div *ngIf="vaccine">
+      <div class="dashboard-header">
+        <i
+          style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
+          (click)="closeCovid19Video('vaccine', false)"
+          class="mdi mdi-close text-danger icon-lg"
+        ></i>
+      </div>
+      <iframe
+        style="width: 100%;
+          height: 650px;"
+        class="embed-responsive-item"
+        src="https://www.youtube.com/embed/74WQgNa3OsQ?rel=0"
+        allowfullscreen=""
+      >
+      </iframe>
+    </div>
+    <div *ngIf="pandemicOver">
+      <div class="dashboard-header">
+        <i
+          style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
+          (click)="closeCovid19Video('pandemicOver', false)"
+          class="mdi mdi-close text-danger icon-lg"
+        ></i>
+      </div>
+      <iframe
+        style="width: 100%;
+          height: 650px;"
+        class="embed-responsive-item"
+        src="https://www.youtube.com/embed/Qi0edf_nJDo?rel=0"
+        allowfullscreen=""
+      >
+      </iframe>
+    </div>
+  </jw-modal>
+</div>

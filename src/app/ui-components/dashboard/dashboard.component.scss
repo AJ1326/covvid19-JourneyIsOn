@@ -71,11 +71,19 @@
 
 .card-weather {
   background: #e1ecff;
-  background-image: linear-gradient(to left bottom, #d6eef6, #dff0fa, #e7f3fc, #eff6fe, #f6f9ff);
+  background-image: linear-gradient(
+    to left bottom,
+    #d6eef6,
+    #dff0fa,
+    #e7f3fc,
+    #eff6fe,
+    #f6f9ff
+  );
   .card-body {
     background: $white;
     &:first-child {
-      background: url("../../../assets/images/samples/weather.svg") no-repeat center;
+      background: url("../../../assets/images/samples/weather.svg") no-repeat
+        center;
       background-size: cover;
     }
   }

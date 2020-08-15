@@ -6,7 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent implements OnInit {
+  opened = false;
+
   constructor() {}
 
   ngOnInit() {}
+
+  public receiveSidebarMessage($event: any) {
+    if ($event === 'true') {
+      this.opened = true;
+    } else {
+      this.opened = false;
+    }
+  }
 }

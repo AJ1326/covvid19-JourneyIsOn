@@ -1,0 +1,320 @@
+:host ::ng-deep .ui-table-customers {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  background-color: white;
+
+  .customer-badge {
+    border-radius: 2px;
+    padding: 0.25em 0.5em;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+
+    &.status-qualified {
+      background-color: #c8e6c9;
+      color: #256029;
+    }
+
+    &.status-unqualified {
+      background-color: #ffcdd2;
+      color: #c63737;
+    }
+
+    &.status-negotiation {
+      background-color: #feedaf;
+      color: #8a5340;
+    }
+
+    &.status-new {
+      background-color: #b3e5fc;
+      color: #23547b;
+    }
+
+    &.status-renewal {
+      background-color: #eccfff;
+      color: #694382;
+    }
+
+    &.status-proposal {
+      background-color: #ffd8b2;
+      color: #805b36;
+    }
+  }
+
+  .flag {
+    vertical-align: middle;
+    width: 30px;
+    height: 20px;
+  }
+
+  .ui-multiselect-representative-option {
+    display: inline-block;
+    vertical-align: middle;
+
+    img {
+      vertical-align: middle;
+      width: 24px;
+    }
+
+    span {
+      margin-top: 0.125em;
+      vertical-align: middle;
+      margin-left: 0.5em;
+    }
+  }
+
+  .ui-paginator {
+    .ui-dropdown {
+      float: left;
+    }
+
+    .ui-paginator-current {
+      float: right;
+    }
+  }
+
+  .ui-progressbar {
+    height: 8px;
+    background-color: #d8dadc;
+
+    .ui-progressbar-value {
+      background-color: #00acad;
+    }
+  }
+
+  .ui-column-filter {
+    display: block;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .ui-table-globalfilter-container {
+    float: right;
+
+    input {
+      width: 200px;
+    }
+  }
+
+  .ui-datepicker {
+    min-width: 25em;
+
+    td {
+      font-weight: 400;
+    }
+  }
+
+  .ui-table-caption {
+    border: 0 none;
+    padding: 12px;
+    text-align: left;
+    font-size: 20px;
+    background-color: white;
+  }
+
+  .ui-paginator {
+    border: 0 none;
+    padding: 1em;
+    background-color: rgb(255, 255, 255);
+    font-size: 14px;
+  }
+
+  .add-bg-color {
+    background-color: rgba(0, 0, 0, 0.17);
+  }
+
+  .add-bg-color:hover {
+    background-color: rgba(0, 0, 0, 0.17);
+  }
+
+  .ui-table-thead > tr > th .th-data {
+    width: 200px !important;
+  }
+
+  .th-head {
+    width: 200px !important;
+  }
+
+  .th-head-bar {
+    width: 260px !important;
+  }
+
+  .ui-table-thead > tr > th {
+    border: 0 none;
+    text-align: left;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    box-shadow: inset 0 0 0 0.2em white !important;
+
+    .th-head {
+      width: 200px;
+    }
+
+    &.ui-filter-column {
+      border-top: 1px solid #c8c8c8;
+    }
+
+    &:first-child {
+      width: 5em;
+      text-align: center;
+    }
+
+    &:last-child {
+      width: 8em;
+      text-align: center;
+    }
+  }
+
+  .ui-table-tbody > tr > td {
+    border: 0 none;
+    cursor: auto;
+
+    &:first-child {
+      width: 3em;
+      text-align: center;
+    }
+
+    &:last-child {
+      width: 8em;
+      text-align: center;
+    }
+  }
+
+  .ui-dropdown-label:not(.ui-placeholder) {
+    text-transform: uppercase;
+  }
+
+  .ui-table-tbody > tr > td .ui-column-title {
+    display: none;
+  }
+}
+
+/* Responsive */
+@media screen and (max-width: 64em) {
+  :host ::ng-deep .ui-table {
+    &.ui-table-customers {
+      .ui-table-thead > tr > th,
+      .ui-table-tfoot > tr > td {
+        display: none !important;
+      }
+
+      .ui-table-tbody > tr > td {
+        text-align: left;
+        display: block;
+        border: 0 none !important;
+        width: 100% !important;
+        float: left;
+        clear: left;
+        border: 0 none;
+
+        .ui-column-title {
+          padding: 0.4em;
+          min-width: 30%;
+          display: inline-block;
+          margin: -0.4em 1em -0.4em -0.4em;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+.search-country {
+  width: 100% !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  padding: 6px !important;
+  border-radius: 9px !important;
+  margin-top: 5px !important;
+  margin-bottom: 10px !important;
+}
+
+// Modal design headings
+.world-img-vector {
+  width: 40px;
+  height: 40px;
+}
+
+.container-world-heading {
+  display: flex;
+  flex-direction: row;
+}
+
+.section-world-heading {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3px;
+  margin-left: 11px;
+}
+
+.section-world-heading h2 {
+  margin-bottom: 1px;
+}
+
+.section-world-heading p {
+  font-size: 12px;
+  font-weight: 100;
+}
+
+.row-data-cases {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1em;
+}
+
+.cases-data {
+  display: flex;
+  flex-direction: row;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.item p {
+  font-weight: 500;
+}
+
+.divider {
+  width: 1px;
+  margin: 6px 0;
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.img_case {
+  width: 25px;
+  height: 25px;
+}
+
+.cases-data p {
+  font-weight: 100;
+  margin-left: 4px;
+  font-size: 16px;
+}
+
+.dashboard-header {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+}
+
+.img-flag-header {
+  width: 40px !important;
+  margin-top: -5px;
+}
+
+.current-dashboard-status {
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0px 1px 6px 0px #00000066;
+}
+
+.fatality-rate-perc {
+  font-size: 13px;
+}

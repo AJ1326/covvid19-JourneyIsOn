@@ -1,0 +1,98 @@
+.about-heading {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.transmission-rate-section p {
+  font-weight: 100;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.comparison {
+  margin-top: 40px;
+}
+
+.symptom-type {
+  display: flex;
+  flex-direction: inherit;
+  margin-top: 40px;
+}
+
+.symptom-img {
+  border-radius: 50%;
+  width: 115px;
+  height: 115px;
+  border: 1px solid rgba(0, 0, 0, 0.26);
+}
+
+.symptom-experience {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+.symptom-experience span {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.other-symptoms {
+  margin-top: 40px;
+}
+
+.major-symptoms {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.source-symptoms {
+  font-size: 10px;
+  color: rgb(148, 32, 32);
+  margin-top: 40px;
+}
+
+.symptom-heading-section {
+  display: flex;
+  flex-direction: row;
+}
+
+.symptom-heading-section .about-heading {
+  flex-grow: 1;
+}
+
+.no-vaccine {
+  font-size: 13px;
+  color: rgb(148, 32, 32);
+}
+
+.block {
+  margin-bottom: 40px;
+}
+
+.symptom-what-to-do {
+  margin-top: 40px;
+}
+
+.about-quick-link {
+  font-size: 14px;
+  cursor: pointer;
+  color: rgb(88, 133, 232);
+  display: flex;
+  flex-direction: row;
+  margin-top: 24px;
+}
+
+.quick-link {
+  flex-grow: 1;
+}
+
+.list-ticked {
+  font-size: 14px;
+  line-height: 1.5em;
+}
+
+.list-ticked li {
+  margin-top: 10px;
+}

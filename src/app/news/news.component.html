@@ -1,0 +1,208 @@
+<div>
+  <div class="card card-weather">
+    <div class="card-body transmission-rate-section symptom-heading-section">
+      <div class="about-heading">
+        COVID-19 Coronavirus - Symptoms
+      </div>
+      <div
+        routerLink="/home"
+        style="font-size: 13px;
+    cursor: pointer;
+    color: rgb(88, 133, 232);"
+      >
+        Check Situation <i class="mdi mdi-arrow-right"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="news-section">
+  <div class="news-container">
+    <h1>Latest News</h1>
+    <p>
+      Stay updated during this situation about health, technology, business,
+      work from home etc.
+    </p>
+  </div>
+  <div class="news-card">
+    <div (click)="openSpecificNews('business')" class="column">
+      <div class="post-module hover">
+        <!-- Thumbnail-->
+        <div class="thumbnail">
+          <!--          <div class="date">-->
+          <!--            <div class="day">27</div>-->
+          <!--            <div class="month">Mar</div>-->
+          <!--          </div>-->
+          <img src="../../assets/images/news/business_news.jpg" />
+        </div>
+        <!-- Post Content-->
+        <div class="post-content">
+          <div class="category">Business</div>
+          <h1 class="title">What's happening in business in Argentina ?</h1>
+          <h2 class="sub_title">
+            Get live top and breaking business headlines from Argentina.
+          </h2>
+          <p class="description">
+            Success is not final; failure is not fatal: it is the courage to
+            continue that counts.
+          </p>
+          <div class="post-meta">
+            <span class="timestamp">#DoWhatsRight</span>
+            <!--            <span class="comments"><i class="fa fa-comments"></i><a href="#"> 39 comments</a></span>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div (click)="openSpecificNews('entertainment')" class="column">
+      <div class="post-module hover">
+        <!-- Thumbnail-->
+        <div class="thumbnail">
+          <!--          <div class="date">-->
+          <!--            <div class="day">27</div>-->
+          <!--            <div class="month">Mar</div>-->
+          <!--          </div>-->
+          <img src="../../assets/images/news/entertainment_news.jpg" />
+        </div>
+        <!-- Post Content-->
+        <div class="post-content">
+          <div class="category">Entertainment</div>
+          <h1 class="title">
+            What's happening in entertainment in Argentina ?
+          </h1>
+          <h2 class="sub_title">
+            Get live top and breaking entertainment headlines from Argentina.
+          </h2>
+          <p class="description">
+            Entertainment is a sacred pursuit when done well. When done well, it
+            raises the quality of human life.
+          </p>
+          <div class="post-meta">
+            <span class="timestamp">#EnjoyLife</span>
+            <!--            <span class="comments"><i class="fa fa-comments"></i><a href="#"> 39 comments</a></span>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div (click)="openSpecificNews('health')" class="column">
+      <div class="post-module hover">
+        <!-- Thumbnail-->
+        <div class="thumbnail">
+          <!--          <div class="date">-->
+          <!--            <div class="day">27</div>-->
+          <!--            <div class="month">Mar</div>-->
+          <!--          </div>-->
+          <img src="../../assets/images/news/health_news.jpeg" />
+        </div>
+        <!-- Post Content-->
+        <div class="post-content">
+          <div class="category">Health</div>
+          <h1 class="title">
+            What are the things that need to be done to be healthy.
+          </h1>
+          <h2 class="sub_title">
+            Get live top and breaking health headlines from Argentina
+          </h2>
+          <p class="description">
+            A fit body, a calm mind, a house full of love. These things cannot
+            be bought.
+          </p>
+          <div class="post-meta">
+            <span class="timestamp">#StayHealthy</span>
+            <!--            <span class="comments"><i class="fa fa-comments"></i><a href="#"> 39 comments</a></span>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div (click)="openSpecificNews('science')" class="column">
+      <div class="post-module hover">
+        <!-- Thumbnail-->
+        <div class="thumbnail">
+          <!--          <div class="date">-->
+          <!--            <div class="day">27</div>-->
+          <!--            <div class="month">Mar</div>-->
+          <!--          </div>-->
+          <img src="../../assets/images/news/science_news.jpeg" />
+        </div>
+        <!-- Post Content-->
+        <div class="post-content">
+          <div class="category">Science</div>
+          <h1 class="title">
+            It's important than ever now, stay updated stay tuned.
+          </h1>
+          <h2 class="sub_title">
+            Get live top and breaking science headlines from Argentina
+          </h2>
+          <p class="description">
+            Nothing has such power to broaden the mind as the ability to
+            investigate systematically and truly all that comes under thy
+            observation in life.
+          </p>
+          <div class="post-meta">
+            <span class="timestamp">#LetsBreakIt</span>
+            <!--            <span class="comments"><i class="fa fa-comments"></i><a href="#"> 39 comments</a></span></div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div (click)="openSpecificNews('sports')" class="column">
+      <div class="post-module hover">
+        <!-- Thumbnail-->
+        <div class="thumbnail">
+          <!--          <div class="date">-->
+          <!--            <div class="day">27</div>-->
+          <!--            <div class="month">Mar</div>-->
+          <!--          </div>-->
+          <img src="../../assets/images/news/sports_news.jpeg" />
+        </div>
+        <!-- Post Content-->
+        <div class="post-content">
+          <div class="category">Sports</div>
+          <h1 class="title">
+            It has always united us, inspired us for the better.
+          </h1>
+          <h2 class="sub_title">
+            Get live top and breaking sports headlines from Argentina
+          </h2>
+          <p class="description">
+            Besides being statistically true, this inspirational sports quote
+            from the most prolific goal scorer in hockey history tells us to
+            take risks. This can be applied in almost any situation in life.
+            Take the shot; if you don’t, you can never make it.
+          </p>
+          <div class="post-meta">
+            <span class="timestamp"> #BeThePlayer</span>
+            <!--            <span class="comments"><i class="fa fa-comments"></i><a href="#"> 39 comments</a></span>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div (click)="openSpecificNews('technology')" class="column">
+      <div class="post-module hover">
+        <!-- Thumbnail-->
+        <div class="thumbnail">
+          <!--          <div class="date">-->
+          <!--            <div class="day">27</div>-->
+          <!--            <div class="month">Mar</div>-->
+          <!--          </div>-->
+          <img src="../../assets/images/news/technology_news.jpeg" />
+        </div>
+        <!-- Post Content-->
+        <div class="post-content">
+          <div class="category">Technology</div>
+          <h1 class="title">Technology is tool to achieve desire.</h1>
+          <h2 class="sub_title">
+            Get live top and breaking technology headlines from Argentina
+          </h2>
+          <p class="description">
+            Imagination is more important than knowledge. For knowledge is
+            limited, whereas imagination embraces the entire world, stimulating
+            progress, giving birth to evolution.
+          </p>
+          <div class="post-meta">
+            <span class="timestamp">#Imagination</span>
+            <!--            <span class="comments"><i class="fa fa-comments"></i><a href="#"> 39 comments</a></span>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

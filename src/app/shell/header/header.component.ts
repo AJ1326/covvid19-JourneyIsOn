@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthenticationService, CredentialsService, I18nService } from '@app/core';
+import {
+  AuthenticationService,
+  CredentialsService,
+  I18nService
+} from '@app/core';
 
 @Component({
   selector: 'app-header',
@@ -29,7 +33,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
+    this.authenticationService
+      .logout()
+      .subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
   }
 
   get currentLanguage(): string {

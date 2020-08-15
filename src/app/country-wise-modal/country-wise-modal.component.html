@@ -1,0 +1,344 @@
+{{ chartLineData }} {{ countryPopulation }} {{ predictiveModal }}
+<div
+  class="row"
+  *ngIf="chartLineData && countryPopulation !== null && predictiveModal"
+>
+  <div class="col-lg-6 row grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="container-world-heading">
+          <img
+            class="world-img-vector"
+            src="../../assets/images/home/earth-icon-vector.png"
+            alt=""
+          />
+          <div class="section-world-heading">
+            <h2 class="card-title text-primary">Total Population</h2>
+            <p>Population: {{ countryPopulation | number }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 current-dashboard-status card card-statistics">
+            <div class="clearfix">
+              <div class="float-left">
+                <img
+                  style="width: 35px;"
+                  src="../../assets/images/country-wise/virus_covid.png"
+                />
+                <!--                    <i class="mdi mdi-cube text-danger icon-lg"></i>-->
+              </div>
+              <div class="float-right">
+                <p class="mb-0 text-right">Total Confirmed</p>
+                <div class="fluid-container">
+                  <h3 class="font-weight-medium text-right mb-0">
+                    {{ selectedCountryData['TotalConfirmed'] }}
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <p class="text-muted mt-3 mb-0">
+              <i aria-hidden="true" class="mdi mdi-alert-octagon mr-1"></i>
+              {{ selectedCountryData['NewConfirmed'] }} new people infected
+              today.
+            </p>
+          </div>
+          <div class="col-md-6 current-dashboard-status card card-statistics">
+            <div class="clearfix">
+              <div class="float-left">
+                <img
+                  style="width: 35px;"
+                  src="../../assets/images/country-wise/confirm.png"
+                />
+                <!--                    <i class="mdi mdi-cube text-danger icon-lg"></i>-->
+              </div>
+              <div class="float-right">
+                <p class="mb-0 text-right">Total Recovered</p>
+                <div class="fluid-container">
+                  <h3 class="font-weight-medium text-right mb-0">
+                    {{ selectedCountryData['TotalRecovered'] }}
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <p class="text-muted mt-3 mb-0">
+              <i aria-hidden="true" class="mdi mdi-alert-octagon mr-1"></i>
+              {{ selectedCountryData['NewRecovered'] }} have been recovered
+              today.
+            </p>
+          </div>
+          <div class="col-md-6 current-dashboard-status card card-statistics">
+            <div class="clearfix">
+              <div class="float-left">
+                <img
+                  style="width: 35px;"
+                  src="../../assets/images/country-wise/death_covid19.png"
+                />
+                <!--                    <i class="mdi mdi-cube text-danger icon-lg"></i>-->
+              </div>
+              <div class="float-right">
+                <p class="mb-0 text-right">Total Deaths</p>
+                <div class="fluid-container">
+                  <h3 class="font-weight-medium text-right mb-0">
+                    {{ selectedCountryData['TotalDeaths'] }}
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <p class="text-muted mt-3 mb-0">
+              <i aria-hidden="true" class="mdi mdi-alert-octagon mr-1"></i> We
+              have lost {{ selectedCountryData['NewDeaths'] }} people due to
+              covid19.
+            </p>
+          </div>
+          <div class="col-md-6 current-dashboard-status card card-statistics">
+            <div class="clearfix">
+              <div class="float-right">
+                <p class="mb-0 text-left">
+                  Our mission is to make people aware about the current
+                  situation and it's aftermath so, we all can take effective
+                  measures for the global pandemic that we are facing today.
+                </p>
+                <div class="fluid-container">
+                  <h3 class="font-weight-medium text-right mb-0">
+                    #JourneyIsOn
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="newscard" style="cursor: pointer;" (click)="showNews()">
+            <div class="clearfix">
+              <div class="float-left">
+                <img
+                  style="width: 35px;"
+                  src="../../assets/images/country-wise/news.png"
+                />
+              </div>
+              <div class="float-right">
+                <p class="mb-0 text-right" style="color: dodgerblue;">
+                  Checkout the top news.
+                </p>
+                <div class="fluid-container">
+                  <h3 class="font-weight-medium text-right mb-0">
+                    {{
+                      selectedCountryData ? selectedCountryData.label : 'World'
+                    }}
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <p class="text-muted mt-3 mb-0 newscardtag">
+              <span class="newscardtag-img">
+                <img
+                  style="width: 30px;"
+                  src="../../assets/images/country-wise/live.png"
+                />
+              </span>
+              <span style="color: black;">#StayUpdated</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 row grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-primary mb-5">Performance History</h2>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">Morality rate</p>
+            <p class="display-3 mb-4 font-weight-light">
+              {{
+                (
+                  (selectedCountryData.TotalDeaths /
+                    selectedCountryData.TotalConfirmed) *
+                  100
+                ).toFixed(2)
+              }}%
+            </p>
+            <p class="mb-2">The best performance</p>
+            <p class="display-3 mb-4 font-weight-light">+45.2%</p>
+            <p class="mb-2">The best performance</p>
+            <p class="display-3 mb-4 font-weight-light">+45.2%</p>
+          </div>
+          <div class="side-right">
+            <small class="text-muted">2017</small>
+          </div>
+        </div>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">Worst performance</p>
+            <p class="display-3 mb-5 font-weight-light">-35.3%</p>
+          </div>
+          <div class="side-right">
+            <small class="text-muted">2015</small>
+          </div>
+        </div>
+        <div class="predictive-analysis" (click)="openPredictiveAnalysis()">
+          Checkout the predictive analysis.
+        </div>
+        <div class="wrapper">
+          <div class="d-flex justify-content-between">
+            <p class="mb-2">
+              Total people infected in
+              {{ selectedCountryData.label }} compared to the world.
+            </p>
+            <p class="mb-2 text-primary">
+              {{
+                (
+                  (selectedCountryData.TotalConfirmed /
+                    globalData.TotalConfirmed) *
+                  100
+                ).toFixed(2)
+              }}%
+            </p>
+          </div>
+          <div class="progress">
+            <div
+              class="progress-bar bg-primary progress-bar-striped progress-bar-animated"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+        </div>
+        <div class="wrapper mt-4">
+          <div class="d-flex justify-content-between">
+            <p class="mb-2">
+              {{
+                (
+                  (selectedCountryData.TotalDeaths / countryPopulation) *
+                  1000000
+                ).toFixed(2)
+              }}
+              deaths in 1 million people.
+            </p>
+            <p class="mb-2 text-primary">
+              {{
+                (
+                  (selectedCountryData.TotalDeaths / countryPopulation) *
+                  1000000
+                ).toFixed(2)
+              }}%
+            </p>
+          </div>
+          <div class="progress">
+            <div
+              class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 row grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="container-world-heading">
+          <img
+            class="world-img-vector"
+            src="../../assets/images/home/earth-icon-vector.png"
+            alt=""
+          />
+          <div class="section-world-heading">
+            <h2 class="card-title text-primary">Total</h2>
+            <p>Last updated on 4th April 2020</p>
+          </div>
+        </div>
+        <div>
+          <canvas
+            baseChart
+            [chartType]="'line'"
+            [datasets]="chartLineData"
+            [labels]="chartLineLabels"
+            [options]="chartLineOptions"
+            [legend]="true"
+            (chartClick)="onChartClick($event)"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 row grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="container-world-heading">
+          <img
+            class="world-img-vector"
+            src="../../assets/images/home/earth-icon-vector.png"
+            alt=""
+          />
+          <div class="section-world-heading">
+            <h2 class="card-title text-primary">Total</h2>
+            <p>Last updated on 4th April 2020</p>
+          </div>
+        </div>
+        <div>
+          <canvas
+            baseChart
+            [chartType]="'bar'"
+            [datasets]="chartLineData"
+            [labels]="chartLineLabels"
+            [options]="chartLineOptions"
+            [legend]="true"
+            (chartClick)="onChartClick($event)"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="!predictiveModal">
+  <div class="grid-margin stretch-card predictive-card">
+    <div class="card">
+      <div class="card-predictive">
+        <div class="container-world-heading" style="margin-left: 30px;">
+          <img
+            class="world-img-vector"
+            src="../../assets/images/home/earth-icon-vector.png"
+            alt=""
+          />
+          <div class="section-world-heading">
+            <h2 class="card-title text-primary">Total Population</h2>
+            <p>Population: {{ countryPopulation | number }}</p>
+          </div>
+        </div>
+        <div class="row select-date-predictive">
+          <h3>Select Date</h3>
+          <p-calendar
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '280px', 'margin-left': '30px' }"
+            [(ngModel)]="futureDate"
+            (ngModelChange)="onFutureDateChange($event)"
+            showButtonBar="true"
+          >
+            <ng-template pTemplate="date" let-date>
+              <span
+                [ngStyle]="{
+                  backgroundColor: date.day === 30 ? '#81C784' : 'inherit'
+                }"
+                style="border-radius:50%; padding: .25em; width: 2em; height: 2em; display:block"
+                >{{ date.day }}</span
+              >
+            </ng-template>
+          </p-calendar>
+          <span class="error-txt-date" *ngIf="showDateError">
+            *Date has to be greater than today's date.
+          </span>
+        </div>
+        <div class="predictive-img">
+          <img src="../../assets/images/predictive/growth_curve.svg" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

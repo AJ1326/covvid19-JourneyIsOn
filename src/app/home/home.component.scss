@@ -7,3 +7,116 @@ q {
   font-size: 1.2rem;
   quotes: "« " " »";
 }
+
+.world-img-vector {
+  width: 40px;
+  height: 40px;
+}
+
+.container-world-heading {
+  display: flex;
+  flex-direction: row;
+}
+
+.section-world-heading {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3px;
+  margin-left: 11px;
+}
+
+.section-world-heading h2 {
+  margin-bottom: 1px;
+}
+
+.section-world-heading p {
+  font-size: 12px;
+  font-weight: 100;
+}
+
+.row-data-cases {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1em;
+}
+
+.cases-data {
+  display: flex;
+  flex-direction: row;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.item p {
+  font-weight: 500;
+}
+
+.divider {
+  width: 1px;
+  margin: 6px 0;
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.img_case {
+  width: 25px;
+  height: 25px;
+}
+
+.cases-data p {
+  font-weight: 100;
+  margin-left: 4px;
+  font-size: 16px;
+}
+
+.card-body-country {
+  padding: 15px;
+}
+
+.showing-map-data {
+  display: flex;
+  flex-direction: column;
+}
+
+// news card
+.newscard {
+  padding: 15px;
+  margin-top: 40px;
+  box-shadow: 1px 0px 7px 0px #00000024;
+}
+
+.newscardtag {
+  display: flex;
+  flex-direction: row;
+}
+
+.newscardtag-img {
+  flex-grow: 1;
+}
+
+// Popup header styles
+.dashboard-header {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+}
+
+.img-flag-header {
+  width: 40px !important;
+  margin-top: -5px;
+}
+
+.current-dashboard-status {
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0px 1px 6px 0px #00000066;
+}
+
+.fatality-rate-perc {
+  font-size: 13px;
+}

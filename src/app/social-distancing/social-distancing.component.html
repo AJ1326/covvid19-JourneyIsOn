@@ -1,0 +1,192 @@
+<div>
+  <div class="card card-weather">
+    <div class="card-body transmission-rate-section symptom-heading-section">
+      <div class="about-heading">
+        COVID-19 Coronavirus - Why social distancing is important ?
+      </div>
+      <div
+        style="font-size: 13px;
+    cursor: pointer;
+    color: rgb(88, 133, 232);"
+        routerLink="/home"
+      >
+        Check Situation <i class="mdi mdi-arrow-right"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-7 grid-margin stretch-card">
+    <!--weather card-->
+    <div class="card card-weather">
+      <div class="card-body transmission-rate-section">
+        <div class="row">
+          <section>
+            <canvas id="population" width="2000" height="1200"></canvas>
+            <div class="info">
+              <canvas id="graph" height="400" width="1500"></canvas>
+              <ul>
+                <li><span>Recovered</span><span id="recovered">0</span></li>
+                <li><span>Healthy</span><span id="healthy">0</span></li>
+                <li><span>Sick</span><span id="sick">0</span></li>
+                <li><span>Dead</span><span id="dead">0</span></li>
+              </ul>
+            </div>
+            <div id="overlay" class="active active">
+              <p>
+                A social distance simulator based on
+                <a (click)="openModal('custom-modal-1')"
+                  >the incredible work done by the Washington Post</a
+                >. This simulator assumes a 1% mortality rate.
+              </p>
+              <div class="field is-grouped">
+                <span class="select">
+                  <select id="quarantine">
+                    <option value="0" selected>No Social Distancing</option>
+                    <option value="0.1">One-Tenth Self-Quarantine</option>
+                    <option value="0.25">One Quarter Self-Quarantine</option>
+                    <option value="0.33">One Third Self-Quarantine</option>
+                    <option value="0.5">One Half Self-Quarantine</option>
+                    <option value="0.75">Three Quarters Self-Quarantine</option>
+                    <option value="1">Everyone Self-Quarantines</option>
+                  </select>
+                </span>
+                &nbsp;
+                <button
+                  class="button is-primary"
+                  (click)="runSimulator()"
+                  id="run"
+                >
+                  Run
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <!--weather card ends-->
+  </div>
+  <div class="col-lg-5 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <iframe
+          style="width: 100%;
+          height: 300px;"
+          class="embed-responsive-item"
+          src="https://www.youtube.com/embed/dSQztKXR6k0?rel=0"
+          allowfullscreen=""
+        >
+        </iframe>
+        <div class="about-heading symptom-what-to-do">
+          What is social distancing ?
+        </div>
+        <span class="no-vaccine">
+          Social distancing is a non-pharmaceutical infection prevention and
+          control intervention implemented to avoid/decrease contact between
+          those who are infected with a disease causing pathogen and those who
+          are not, so as to stop or slow down the rate and extent of disease
+          transmission in a community. This eventually leads to decrease in
+          spread, morbidity and mortality due to the disease.
+        </span>
+        <div class="comparison">
+          <div class="major-symptoms">
+            Tips for Social Distancing
+          </div>
+          <p
+            style="
+            font-weight: 100;
+            font-size: 14px;
+            margin-top: 20px;"
+          >
+            When going out in public, it is important to stay at least 6 feet
+            away from other people and wear a cloth face covering to slow the
+            spread of COVID-19. Consider the following tips for practicing
+            social distancing when you decide to go out.When going out in
+            public, it is important to stay at least 6 feet away from other
+            people and wear a cloth face covering to slow the spread of
+            COVID-19. Consider the following tips for practicing social
+            distancing when you decide to go out.
+          </p>
+          <ul class="list-ticked">
+            <li>
+              Know Before You Go: Before going out, know and follow the guidance
+              from local public health authorities where you live.
+            </li>
+            <li>
+              Prepare for Transportation: Consider social distancing options to
+              travel safely when running errands or commuting to and from work,
+              whether walking, bicycling, wheelchair rolling, or using public
+              transit, rideshares, or taxis. When using public transit, try to
+              keep at least 6 feet from other passengers or transit operators.
+            </li>
+            <li>
+              Limit Contact When Running Errands: Only visit stores selling
+              household essentials in person when you absolutely need to, and
+              stay at least 6 feet away from others who are not from your
+              household while shopping and in lines. If possible, use
+              drive-thru, curbside pick-up, or delivery services to limit
+              face-to-face contact with others.
+            </li>
+            <li>
+              Choose Safe Social Activities:It is possible to stay socially
+              connected with friends and family who don’t live in your home by
+              calling, using video chat, or staying connected through social
+              media.
+            </li>
+            <li>
+              Stay Distanced While Being Active: If you decide to visit a nearby
+              park, trail, or recreational facility, first check for closures or
+              restrictions. If open, consider how many other people might be
+              there and choose a location where it will be possible to keep at
+              least 6 feet of space between yourself and other people who are
+              not from your household.
+            </li>
+          </ul>
+          <div class="other-symptoms">
+            <div class="about-heading">
+              Quick Links
+            </div>
+            <div class="about-quick-link">
+              <span class="quick-link">
+                Qouestion's on coronavirus
+              </span>
+              <i class="mdi mdi-arrow-right"></i>
+            </div>
+            <div class="about-quick-link">
+              <span class="quick-link">
+                Prevention of coronavirus
+              </span>
+              <i class="mdi mdi-arrow-right"></i>
+            </div>
+            <div class="about-quick-link">
+              <span class="quick-link">
+                Learn more on who
+              </span>
+              <i class="mdi mdi-arrow-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<jw-modal id="custom-modal-1">
+  <div>
+    <div class="dashboard-header">
+      <i
+        style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
+        (click)="closeModal('custom-modal-1')"
+        class="mdi mdi-close text-danger icon-lg"
+      ></i>
+    </div>
+    <iframe
+      id="theFrame"
+      src="https://www.washingtonpost.com/graphics/2020/world/corona-simulator/"
+      style="width:100%; height: 90vh;"
+      frameborder="0"
+    >
+    </iframe>
+  </div>
+</jw-modal>

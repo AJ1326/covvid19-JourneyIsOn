@@ -1,9 +1,15 @@
 <div class="container-scroller">
-  <app-navbar></app-navbar>
-  <app-header></app-header>
+  <app-navbar
+    (messageSidebarOpened)="receiveSidebarMessage($event)"
+    [opened]="opened"
+  ></app-navbar>
+  <!--  <app-header></app-header>-->
   <div class="container-fluid page-body-wrapper">
-    <app-sidebar></app-sidebar>
-    <div class="main-panel">
+    <app-sidebar
+      *ngIf="opened"
+      (messageSidebarOpened)="receiveSidebarMessage($event)"
+    ></app-sidebar>
+    <div class="main-panel" [ngClass]="!opened ? 'full-main-panel' : ''">
       <div class="content-wrapper">
         <router-outlet></router-outlet>
       </div>
