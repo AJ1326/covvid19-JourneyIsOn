@@ -12,6 +12,9 @@ export class CountryIndiaService {
   /** Get detailed country data **/
   callCountryIndiaData(): Observable<any> {
     return this.http.get('https://api.rootnet.in/covid19-in/stats/latest', {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
       withCredentials: true
     });
   }
@@ -19,6 +22,9 @@ export class CountryIndiaService {
   /** Get important contact info state wise **/
   getImportantContactInfo(): Observable<any> {
     return this.http.get('https://api.rootnet.in/covid19-in/contacts', {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
       withCredentials: true
     });
   }
