@@ -102,6 +102,9 @@
     "tslint-config-prettier": "^1.14.0",
     "typescript": "~3.4.0"
   },
+  "resolutions": {
+    "@babel/preset-env": "7.5.5"
+  },
   "prettier": {
     "singleQuote": true,
     "overrides": [
