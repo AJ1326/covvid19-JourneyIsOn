@@ -6,7 +6,7 @@ export function hmrBootstrap(
   bootstrap: () => Promise<NgModuleRef<any>>
 ) {
   let ngModule: NgModuleRef<any>;
-  module.hot.accept();
+  // module.hot.accept();
 
   bootstrap()
     .then(mod => (ngModule = mod))
