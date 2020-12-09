@@ -128,7 +128,7 @@
   </ng-template>
 </p-table>
 
-<jw-modal id="country-modal">
+<jw-modal id="country-modal" *ngIf="selectedCountryDetails">
   <div *ngIf="selectedCountryDetails">
     <div class="dashboard-header">
       <div>
