@@ -45,10 +45,8 @@ export class IndiaComponent implements OnInit, AfterViewInit {
   @ViewChild('input', { static: true }) input: ElementRef;
 
   constructor(
-    private modalService: ModalService,
-    private countryIndiaService: CountryIndiaService
-  ) // private cdr: ChangeDetectorRef
-  {}
+    private countryIndiaService: CountryIndiaService // private cdr: ChangeDetectorRef
+  ) {}
 
   sortSearchFunction(search: string, arr: any) {
     let finalPayload;
@@ -413,33 +411,5 @@ export class IndiaComponent implements OnInit, AfterViewInit {
     } else {
       return false;
     }
-  }
-
-  videoDisplayType(id: string, status: boolean) {
-    this.setID = id;
-    switch (id) {
-      case 'whatIsCovid':
-        this.covidVideo = status;
-        break;
-      case 'lifeProspective':
-        this.lifeProspective = status;
-        break;
-      case 'pandemicOver':
-        this.pandemicOver = status;
-        break;
-      case 'vaccine':
-        this.vaccine = status;
-        break;
-    }
-  }
-
-  openCovid19Video(id: string, status: boolean) {
-    this.videoDisplayType(id, status);
-    this.modalService.open(id);
-  }
-
-  closeCovid19Video(id: string, status: boolean) {
-    this.modalService.close(id);
-    this.videoDisplayType(id, status);
   }
 }
