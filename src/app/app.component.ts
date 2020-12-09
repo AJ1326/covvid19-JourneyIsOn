@@ -7,6 +7,7 @@ import { filter, map, switchMap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { Logger, I18nService, untilDestroyed } from '@app/core';
+import { PwaService } from './pwa.service';
 
 const log = new Logger('App');
 
@@ -21,7 +22,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private titleService: Title,
     private translateService: TranslateService,
-    private i18nService: I18nService
+    private i18nService: I18nService,
+    public Pwa: PwaService
   ) {}
 
   ngOnInit() {
@@ -62,6 +64,10 @@ export class AppComponent implements OnInit, OnDestroy {
           this.titleService.setTitle(this.translateService.instant(title));
         }
       });
+  }
+
+  installPwa(): void {
+    this.Pwa.promptEvent.prompt();
   }
 
   ngOnDestroy() {

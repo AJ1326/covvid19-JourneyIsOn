@@ -11,11 +11,6 @@ import { ModalService } from '@app/modal/modal.service';
 export class HomeDashboardComponent implements OnInit {
   version: string | null = environment.version;
   date: any;
-  public covidVideo = false;
-  public lifeProspective = false;
-  public vaccine = false;
-  public pandemicOver = false;
-  public setID = '';
 
   constructor(private modalService: ModalService) {}
 
@@ -77,31 +72,11 @@ export class HomeDashboardComponent implements OnInit {
     });
   }
 
-  videoDisplayType(id: string, status: boolean) {
-    this.setID = id;
-    switch (id) {
-      case 'whatIsCovid':
-        this.covidVideo = status;
-        break;
-      case 'lifeProspective':
-        this.lifeProspective = status;
-        break;
-      case 'pandemicOver':
-        this.pandemicOver = status;
-        break;
-      case 'vaccine':
-        this.vaccine = status;
-        break;
-    }
-  }
-
   openCovid19Video(id: string, status: boolean) {
-    this.videoDisplayType(id, status);
     this.modalService.open(id);
   }
 
   closeCovid19Video(id: string, status: boolean) {
     this.modalService.close(id);
-    this.videoDisplayType(id, status);
   }
 }

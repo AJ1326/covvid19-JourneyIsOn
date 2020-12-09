@@ -188,7 +188,6 @@
     top: $navbar-height;
     bottom: 0;
     overflow: auto;
-    right: -$sidebar-width-lg;
     -webkit-transition: all 0.25s ease-out;
     -o-transition: all 0.25s ease-out;
     transition: all 0.25s ease-out;
@@ -196,4 +195,54 @@
       right: 0;
     }
   }
+}
+
+.overlay-close {
+  min-height: calc(100vh - 63px);
+  background: #06060696;
+  font-family: "Poppins", sans-serif;
+  padding: 0;
+  width: 100%;
+  position: fixed;
+  margin-top: 0px;
+  box-shadow: 5px 1px 9px 3px #0000002e;
+  z-index: 10;
+}
+
+.download-app {
+  color: #fff;
+  background-color: #2196f3;
+  border-color: #2196f3;
+}
+
+.download-app:hover {
+  opacity: 0.8;
+}
+
+.dfc {
+  display: flex;
+  flex-direction: column;
+}
+
+.dfc h1 {
+  text-align: center;
+  font-weight: 100;
+  margin-bottom: 50px;
+}
+
+.dfc span {
+  line-height: 30px;
+  font-weight: 200;
+  font-style: italic;
+  padding: 2rem 5rem 2rem 5rem;
+}
+
+.dashboard-header {
+  text-align: right;
+  padding-bottom: 20px;
+}
+
+.dashboard-header i {
+  flex-grow: 0;
+  font-size: 28px;
 }

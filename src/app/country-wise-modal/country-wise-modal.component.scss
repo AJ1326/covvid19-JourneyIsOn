@@ -154,3 +154,80 @@
     width: 277px;
   }
 }
+
+//  growth rate css
+
+.confirmed-gr-rate {
+  font-size: 14px;
+  color: red;
+}
+
+.recovered-gr-rate {
+  font-size: 14px;
+  color: green;
+}
+
+.dead-gr-rate {
+  font-size: 14px;
+  color: #3f51b5;
+}
+
+.doubling-rate-p {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  font-size: 2rem;
+}
+
+.doubling-rate-type {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+.doubling-rate {
+  margin-left: 15px;
+}
+
+.graph-css {
+  height: 400px !important;
+}
+
+.ml-2 {
+  margin-left: 2px;
+}
+
+@media only screen and (max-width: 500px) {
+  .graph-css {
+    height: 320px !important;
+  }
+  .doubling-rate-p {
+    flex-direction: column;
+  }
+  .doubling-rate {
+    margin-left: 0;
+  }
+}
+
+.bg-infected {
+  background-color: #ff5722 !important;
+}
+
+.bg-per-million {
+  background-color: #ffc107 !important;
+}
+
+.performance-statement {
+  font-size: 12px;
+  color: red;
+}
+
+.justify-content-between {
+  margin-top: 30px;
+}
+
+.district-india-btn {
+  font-size: 16px;
+  font-weight: 200;
+}

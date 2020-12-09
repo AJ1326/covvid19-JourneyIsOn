@@ -62,9 +62,7 @@
         <img
           *ngIf="customer.value !== 'World'"
           [alt]="customer.value"
-          src="https://www.countryflags.io/{{
-            customer.value.toLowerCase()
-          }}/shiny/64.png"
+          src="https://flagcdn.com/32x24/{{ customer.value.toLowerCase() }}.png"
           width="32"
         />
         <img
@@ -130,15 +128,15 @@
   </ng-template>
 </p-table>
 
-<jw-modal id="custom-modal-1" *ngIf="selectedCountryDetails">
-  <div>
+<jw-modal id="custom-modal-1">
+  <div *ngIf="selectedCountryDetails">
     <div class="dashboard-header">
       <div>
         <img
           class="img-flag-header"
-          src="https://www.countryflags.io/{{
-            selectedCountryDetails.value
-          }}/shiny/64.png"
+          src="https://flagcdn.com/32x24/{{
+            selectedCountryDetails.value.toLowerCase()
+          }}.png"
         />
       </div>
       <h3 style="flex-grow: 1; margin-left: 10px;">
@@ -156,7 +154,6 @@
       *ngIf="selectedCountryDetails && globalData"
       [selectedCountryDetails]="selectedCountryDetails"
       [globalDetails]="globalData"
-      [predictiveModal]="closePredictiveModal"
     ></app-country-wise-modal>
   </div>
 </jw-modal>

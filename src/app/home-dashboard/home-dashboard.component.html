@@ -37,10 +37,10 @@
           <li class="boxgrid__item boxgrid__item--wide">
             <a routerLink="/my-india" class="box box--image">
               <p class="world-impact">
-                My India
+                India
               </p>
               <img
-                src="https://source.unsplash.com/300x300/?india"
+                src="https://source.unsplash.com/300x300/?black"
                 class="box__img"
                 alt=""
               />
@@ -49,6 +49,14 @@
           <li class="boxgrid__item">
             <a routerLink="/home" class="box box--weather">
               <p>How your country is performing ?</p>
+            </a>
+          </li>
+          <li class="boxgrid__item">
+            <a
+              routerLink="/social-distancing"
+              class="box box--locations social_distancing_box"
+            >
+              <p>Social Distancing : why ? what ? and how ?</p>
             </a>
           </li>
           <li class="boxgrid__item boxgrid__item--wide">
@@ -84,6 +92,11 @@
               <p>COVID-19 (Coronavirus) Survival Calculator</p>
             </a>
           </li>
+          <li class="boxgrid__item">
+            <a routerLink="/how-to-stay-mentally-fit" class="box box--cost">
+              <p>How to stay mentally fit ?</p>
+            </a>
+          </li>
           <li
             class="boxgrid__item boxgrid__item--wide"
             (click)="openCovid19Video('whatIsCovid', true)"
@@ -95,14 +108,6 @@
                 class="box__img"
                 alt=""
               />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
             </a>
           </li>
           <li class="boxgrid__item">
@@ -132,11 +137,6 @@
             </a>
           </li>
           <li class="boxgrid__item">
-            <a routerLink="/how-to-stay-mentally-fit" class="box box--cost">
-              <p>How to stay mentally fit ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
             <a routerLink="/symptoms" class="box box--locations symptom_box">
               <p>Coronavirus: Symptoms/Prevention</p>
             </a>
@@ -145,73 +145,78 @@
       </div>
     </article>
   </main>
+</div>
 
-  <jw-modal
-    id="{{ setID }}"
-    *ngIf="covidVideo || lifeProspective || vaccine || pandemicOver"
-  >
-    <div *ngIf="covidVideo">
+<div class="modals">
+  <!-- the same view can be shown in more than one case -->
+  <jw-modal id="whatIsCovid">
+    <div>
       <div class="dashboard-header">
         <i
-          style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
           (click)="closeCovid19Video('whatIsCovid', false)"
           class="mdi mdi-close text-danger icon-lg"
         ></i>
       </div>
       <iframe
         style="width: 100%;
-          height: 650px;"
+            height: 650px;"
         class="embed-responsive-item"
         src="https://www.youtube.com/embed/D9tTi-CDjDU?rel=0"
         allowfullscreen=""
       >
       </iframe>
     </div>
-    <div *ngIf="lifeProspective">
+  </jw-modal>
+
+  <jw-modal id="lifeProspective">
+    <div>
       <div class="dashboard-header">
         <i
-          style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
           (click)="closeCovid19Video('lifeProspective', false)"
           class="mdi mdi-close text-danger icon-lg"
         ></i>
       </div>
       <iframe
         style="width: 100%;
-          height: 650px;"
+            height: 650px;"
         class="embed-responsive-item"
         src="https://www.youtube.com/embed/E44kFkyl_Y8?rel=0"
         allowfullscreen=""
       >
       </iframe>
     </div>
-    <div *ngIf="vaccine">
+  </jw-modal>
+
+  <jw-modal id="vaccine">
+    <div>
       <div class="dashboard-header">
         <i
-          style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
           (click)="closeCovid19Video('vaccine', false)"
           class="mdi mdi-close text-danger icon-lg"
         ></i>
       </div>
       <iframe
         style="width: 100%;
-          height: 650px;"
+            height: 650px;"
         class="embed-responsive-item"
         src="https://www.youtube.com/embed/74WQgNa3OsQ?rel=0"
         allowfullscreen=""
       >
       </iframe>
     </div>
-    <div *ngIf="pandemicOver">
+  </jw-modal>
+
+  <jw-modal id="pandemicOver">
+    <div>
       <div class="dashboard-header">
         <i
-          style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
           (click)="closeCovid19Video('pandemicOver', false)"
           class="mdi mdi-close text-danger icon-lg"
         ></i>
       </div>
       <iframe
         style="width: 100%;
-          height: 650px;"
+            height: 650px;"
         class="embed-responsive-item"
         src="https://www.youtube.com/embed/Qi0edf_nJDo?rel=0"
         allowfullscreen=""
@@ -219,4 +224,6 @@
       </iframe>
     </div>
   </jw-modal>
+
+  <!--default case when there are no matches -->
 </div>

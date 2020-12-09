@@ -30,7 +30,7 @@
           </footer>
         </blockquote>
         <div class="about-heading">
-          <a class="click_btn" (click)="openVideo('mentalHealth', true)"
+          <a class="click_btn" (click)="openVideo('mentalHealth')"
             >How to look after your mental health</a
           >
         </div>
@@ -41,7 +41,7 @@
           like:
         </p>
         <p>
-          <a class="click_btn" (click)="openVideo('anxiety', true)"
+          <a class="click_btn" (click)="openVideo('anxiety')"
             >reduced stress and anxiety</a
           ><br />
           improved moods and clearer thinking<br />
@@ -97,7 +97,7 @@
                 going on in the world. If things seem a little stressful at the
                 moment, and you’re finding it hard to focus, it could be the
                 ideal remedy. But
-                <a class="click_btn" (click)="openVideo('mindfull', true)"
+                <a class="click_btn" (click)="openVideo('mindfull')"
                   >what is mindfulness?</a
                 >
               </p>
@@ -295,7 +295,7 @@
           </ul>
           <div class="other-symptoms">
             <div class="about-heading">
-              Quick Links
+              Checkout following
             </div>
             <div class="about-quick-link">
               <span class="quick-link">
@@ -336,12 +336,59 @@
               <i class="mdi mdi-arrow-right"></i>
             </div>
           </div>
+          <div class="other-symptoms">
+            <div class="about-heading">
+              Quick Links
+            </div>
+            <div class="about-quick-link" routerLink="/social-distancing">
+              <span class="quick-link">
+                Why social distancing is important ?
+              </span>
+              <i class="mdi mdi-arrow-right"></i>
+            </div>
+            <div class="about-quick-link" routerLink="/prevention">
+              <span class="quick-link">
+                Prevention of coronavirus
+              </span>
+              <i class="mdi mdi-arrow-right"></i>
+            </div>
+            <div class="about-quick-link" routerLink="/what-to-do">
+              <span class="quick-link">
+                What to do ?
+              </span>
+              <i class="mdi mdi-arrow-right"></i>
+            </div>
+            <div class="about-quick-link" routerLink="/covid-calculator">
+              <span class="quick-link">
+                Survival calculator
+              </span>
+              <i class="mdi mdi-arrow-right"></i>
+            </div>
+            <div class="about-quick-link" routerLink="/economy-impact">
+              <span class="quick-link">
+                How it will impact the economy ?
+              </span>
+              <i class="mdi mdi-arrow-right"></i>
+            </div>
+            <div class="about-quick-link">
+              <span class="quick-link">
+                <a
+                  href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"
+                  target="blank"
+                >
+                  Learn more on who
+                </a>
+              </span>
+              <i class="mdi mdi-arrow-right"></i>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <jw-modal id="{{ setID }}" *ngIf="mindfull || anxiety || mentalHealth">
-    <div *ngIf="mindfull">
+
+  <jw-modal id="mindfull">
+    <div>
       <div class="dashboard-header">
         <i
           style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
@@ -358,7 +405,10 @@
       >
       </iframe>
     </div>
-    <div *ngIf="anxiety">
+  </jw-modal>
+
+  <jw-modal id="anxiety">
+    <div>
       <div class="dashboard-header">
         <i
           style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
@@ -375,7 +425,10 @@
       >
       </iframe>
     </div>
-    <div *ngIf="mentalHealth">
+  </jw-modal>
+
+  <jw-modal id="mentalHealth">
+    <div>
       <div class="dashboard-header">
         <i
           style="flex-grow: 0; margin-top: -15px; font-size: 24px;"

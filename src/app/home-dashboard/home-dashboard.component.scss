@@ -1,17 +1,5 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  min-height: 100vh;
-  height: 100%;
-  overflow: hidden;
-  color: #fff;
-  background-color: #121519;
-  font-family: "Montserrat", "Roboto", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+::ng-deep .app-body {
+  overflow-y: hidden !important;
 }
 
 ul,
@@ -142,7 +130,7 @@ p {
   min-height: 500px;
   min-height: calc(100vh - 4rem - 4rem);
   padding-top: 300px;
-  margin-bottom: 250px;
+  margin-bottom: 200px;
   position: relative;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
@@ -211,7 +199,7 @@ p {
 }
 @media screen and (min-width: 1024px) {
   .section {
-    margin-bottom: 750px;
+    margin-bottom: 600px;
   }
   .section__header {
     -webkit-transform: translateZ(-1px) scale(1.9);
@@ -487,4 +475,14 @@ button:focus {
 }
 .content-wrapper {
   position: fixed;
+}
+
+.dashboard-header {
+  text-align: right;
+  padding-bottom: 20px;
+}
+
+.dashboard-header i {
+  flex-grow: 0;
+  font-size: 28px;
 }

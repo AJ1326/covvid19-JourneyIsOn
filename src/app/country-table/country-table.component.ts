@@ -18,7 +18,7 @@ export class CountryTableComponent implements OnInit {
   selectedCountry: any[];
   error: string;
   isLoading = false;
-  closePredictiveModal = false;
+  // closePredictiveModal = false;
 
   @ViewChild('dt', { static: false }) table: Table;
 
@@ -81,6 +81,6 @@ export class CountryTableComponent implements OnInit {
 
   closeModal(id: string) {
     this.modalService.close(id);
-    this.closePredictiveModal = false;
+    // this.closePredictiveModal = false;
   }
 }

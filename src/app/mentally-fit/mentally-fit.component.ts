@@ -19,28 +19,11 @@ export class MentallyFitComponent implements OnInit {
 
   ngOnInit() {}
 
-  videoDisplayType(id: string, status: boolean) {
-    this.setID = id;
-    switch (id) {
-      case 'mindfull':
-        this.mindfull = status;
-        break;
-      case 'anxiety':
-        this.anxiety = status;
-        break;
-      case 'mentalHealth':
-        this.anxiety = status;
-        break;
-    }
-  }
-
   openVideo(id: string, status: boolean) {
-    this.videoDisplayType(id, status);
     this.modalService.open(id);
   }
 
   closeVideo(id: string, status: boolean) {
     this.modalService.close(id);
-    this.videoDisplayType(id, status);
   }
 }

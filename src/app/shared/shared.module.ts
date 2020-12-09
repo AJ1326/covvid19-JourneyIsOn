@@ -8,6 +8,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ChartModule } from 'primeng/chart';
 import { FormsModule } from '@angular/forms';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerService } from './spinner/spinner.service';
 
 @NgModule({
   imports: [
@@ -19,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     ProgressBarModule,
     ChartModule
   ],
-  declarations: [LoaderComponent],
-  exports: [LoaderComponent]
+  declarations: [LoaderComponent, SpinnerComponent],
+  providers: [SpinnerService],
+  exports: [LoaderComponent, SpinnerComponent]
 })
 export class SharedModule {}

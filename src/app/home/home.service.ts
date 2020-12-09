@@ -16,6 +16,15 @@ export class HomeService {
     });
   }
 
+  getIpLocation(): Observable<any> {
+    return this.http.get(
+      'https://api.ipgeolocation.io/ipgeo?apiKey=3cc6a06ee4a64e5194623184209bfeda',
+      {
+        withCredentials: true
+      }
+    );
+  }
+
   /** Total summary of the world **/
   getSummary(): Observable<any> {
     return this.http.get('https://api.covid19api.com/summary', {

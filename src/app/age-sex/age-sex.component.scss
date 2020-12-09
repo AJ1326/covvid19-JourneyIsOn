@@ -12,3 +12,13 @@
 .comparison {
   font-size: 15px;
 }
+
+.symptom-heading-section .about-heading {
+  flex-grow: 1;
+  font-size: 16px;
+}
+
+.symptom-heading-section {
+  display: flex;
+  flex-direction: row;
+}

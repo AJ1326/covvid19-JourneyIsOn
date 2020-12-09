@@ -1,969 +1,354 @@
 <div class="app">
   <header class="header">
     <div class="header__left">
-      <span
-        >Covid19: We are in this together, and we will get through this
-        together.</span
-      >
+      <input
+        type="text"
+        [(ngModel)]="stateSearch"
+        class="form-control"
+        name="searchString"
+        placeholder="What's your state ?"
+        #input
+      />
     </div>
     <div class="header__right">
-      <p>{{ date | date: 'fullDate' }}</p>
+      <i class="fa fa-search" aria-hidden="true"></i>
     </div>
   </header>
+  <!-- <div class="search-bar-dropdown">
+    <p>Arunachal</p>
+    <p>Arunachal</p>
+    <p>Arunachal</p>
+    <p>Arunachal</p>
+    <p>Arunachal</p>
+    <p>Arunachal</p>
+  </div> -->
 
-  <main class="main">
-    <article class="section" id="vienna" data-section>
+  <main class="main" *ngIf="showData">
+    <article class="section" id="vienna" data-section *ngIf="!searchFilter">
       <header
         class="section__header"
-        style="background-image: url(https://source.unsplash.com/1200x1200/?india);"
+        style="background-image: url(https://source.unsplash.com/800x800/?india);"
       >
-        <h1 class="section__title" style="color: white;">Social distancing</h1>
-        <p class="section__subtitle" style="color: white;">
-          Effective execution of social distancing is the only viable solution.
-        </p>
+        <h1 class="section__title" style="color: white;">India</h1>
       </header>
       <div class="section__content">
         <ul class="boxgrid">
-          <li class="boxgrid__item">
-            <a routerLink="/home" class="box box--weather">
-              <p>How your country is performing ?</p>
+          <li class="boxgrid__item boxgrid__item--wide">
+            <a class="box box--image d-flex-col bg-red">
+              <p class="world-impact fs-3">
+                Total cases:
+              </p>
+              <p class="fs-3">
+                {{ countryData['summary']['total'] }}
+              </p>
             </a>
           </li>
           <li class="boxgrid__item">
-            <a routerLink="/home" class="box box--weather">
-              <p>How your country is performing ?</p>
+            <a class="box box--weather d-flex-col bg-d-blue">
+              <p class="fs-3">Foreign Cases</p>
+              <p class="fs-3">
+                {{ countryData['summary']['confirmedCasesForeign'] }}
+              </p>
+            </a>
+          </li>
+          <li class="boxgrid__item bg-l-blue">
+            <a class="box box--weather d-flex-col">
+              <p class="fs-3">Indian Cases</p>
+              <p class="fs-3">
+                {{ countryData['summary']['confirmedCasesIndian'] }}
+              </p>
+            </a>
+          </li>
+          <li class="boxgrid__item bg-dark">
+            <a class="box box--cost d-flex-col">
+              <p class="fs-3">Deaths</p>
+              <p class="fs-3">
+                {{ countryData['summary']['deaths'] }}
+              </p>
+            </a>
+          </li>
+          <li class="boxgrid__item bg-l-green">
+            <a class="box box--cost d-flex-col">
+              <p class="fs-3">Recovered</p>
+              <p class="fs-3">
+                {{ countryData['summary']['discharged'] }}
+              </p>
             </a>
           </li>
           <li class="boxgrid__item boxgrid__item--wide">
-            <a
-              (click)="openCovid19Video('pandemicOver', true)"
-              class="box box--image"
-            >
-              <p class="world-impact">
-                When this pendemic will be over ?
+            <a class="box box--image d-flex-col bg-d-green">
+              <p class="world-impact fs-3">
+                Total hospitals
               </p>
-              <img
-                src="../../assets/images/dashboard/covid-world.jpg"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('vaccine', true)"
-          >
-            <a class="box box--video box--life">
-              <p class="world-impact">Vaccine ?</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?vaccine"
-                class="box__img"
-                alt=""
-              />
+              <p class="fs-3">
+                {{ hospAndBedData['summary']['totalHospitals'] }}
+              </p>
             </a>
           </li>
           <li class="boxgrid__item">
-            <a routerLink="/covid-calculator" class="box box--cost">
-              <p>COVID-19 (Coronavirus) Survival Calculator</p>
+            <a class="box box--locations bg-yellow d-flex-col">
+              <p class="fs-3">Urban Hospitals/Beds</p>
+              <p class="fs-3">
+                {{ hospAndBedData['summary']['urbanHospitals'] }} /
+                {{ hospAndBedData['summary']['urbanBeds'] }}
+              </p>
             </a>
           </li>
           <li class="boxgrid__item">
-            <a routerLink="/covid-calculator" class="box box--cost">
-              <p>COVID-19 (Coronavirus) Survival Calculator</p>
+            <a class="box box--locations social_distancing_box d-flex-col">
+              <p class="fs-3">Rural Hospitals/Beds</p>
+              <p class="fs-3">
+                {{ hospAndBedData['summary']['ruralHospitals'] }} /
+                {{ hospAndBedData['summary']['ruralBeds'] }}
+              </p>
             </a>
           </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('whatIsCovid', true)"
-          >
-            <a class="box box--video">
-              <p class="world-impact">What is covid19 ?</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?covid"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/economy-impact"
-              class="box box--weather economy_box"
-            >
-              <p>How it's going to effect economy ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/economy-impact"
-              class="box box--weather economy_box"
-            >
-              <p>How it's going to effect economy ?</p>
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('lifeProspective', true)"
-          >
-            <a class="box box--video box--life">
-              <p class="world-impact">Giving life a prospective.</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?life"
-                class="box__img"
-                alt=""
-              />
-            </a>
+          <li class="boxgrid__item boxgrid__item--wide">
+            <div class="box box--image d-flex-col bg-pink">
+              <p class="fs-3">Contact Info</p>
+              <div class="fs-3">
+                Email : {{ contactInfoData['contacts']['primary']['email'] }}
+              </div>
+              <div>
+                Number : {{ contactInfoData['contacts']['primary']['number'] }}
+              </div>
+              <div class="fs-3">
+                Tollfree :
+                {{ contactInfoData['contacts']['primary']['number-tollfree'] }}
+              </div>
+              <div class="d-flex-row">
+                <a
+                  target="blank"
+                  [href]="contactInfoData['contacts']['primary']['facebook']"
+                >
+                  <i class="fa fa-facebook-square fs-25" aria-hidden="true"></i>
+                </a>
+                <a
+                  target="blank"
+                  [href]="contactInfoData['contacts']['primary']['media'][0]"
+                >
+                  <i class="fa fa-video-camera fs-25" aria-hidden="true"></i>
+                </a>
+                <a
+                  target="blank"
+                  [href]="contactInfoData['contacts']['primary']['twitter']"
+                >
+                  <i class="fa fa-twitter-square fs-25" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
           </li>
           <li class="boxgrid__item">
-            <a routerLink="/what-to-do" class="box box--locations">
-              <p>What do to ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/how-to-stay-mentally-fit" class="box box--cost">
-              <p>How to stay mentally fit ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/symptoms" class="box box--locations symptom_box">
-              <p>Coronavirus: Symptoms/Prevention</p>
+            <a class="box box--locations d-flex-col">
+              <p class="fs-3">Total sample tested</p>
+              <p class="fs-3">
+                {{ totalTestingConducted['totalSamplesTested'] }}
+              </p>
             </a>
           </li>
         </ul>
       </div>
     </article>
-    <article class="section" id="vienna" data-section>
-      <header
-        class="section__header"
-        style="background-image: url(https://source.unsplash.com/1200x1200/?india);"
+
+    <ng-container *ngIf="finalArray.length > 0; else other_content">
+      <article
+        class="section"
+        id="vienna"
+        data-section
+        *ngFor="let state of stateAndDistrictArray; let index"
       >
-        <h1 class="section__title" style="color: white;">Social distancing</h1>
-        <p class="section__subtitle" style="color: white;">
-          Effective execution of social distancing is the only viable solution.
-        </p>
-      </header>
-      <div class="section__content">
-        <ul class="boxgrid">
-          <li class="boxgrid__item">
-            <a routerLink="/home" class="box box--weather">
-              <p>How your country is performing ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/home" class="box box--weather">
-              <p>How your country is performing ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item boxgrid__item--wide">
-            <a
-              (click)="openCovid19Video('pandemicOver', true)"
-              class="box box--image"
-            >
-              <p class="world-impact">
-                When this pendemic will be over ?
-              </p>
-              <img
-                src="../../assets/images/dashboard/covid-world.jpg"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('vaccine', true)"
-          >
-            <a class="box box--video box--life">
-              <p class="world-impact">Vaccine ?</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?vaccine"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/covid-calculator" class="box box--cost">
-              <p>COVID-19 (Coronavirus) Survival Calculator</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/covid-calculator" class="box box--cost">
-              <p>COVID-19 (Coronavirus) Survival Calculator</p>
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('whatIsCovid', true)"
-          >
-            <a class="box box--video">
-              <p class="world-impact">What is covid19 ?</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?covid"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/economy-impact"
-              class="box box--weather economy_box"
-            >
-              <p>How it's going to effect economy ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/economy-impact"
-              class="box box--weather economy_box"
-            >
-              <p>How it's going to effect economy ?</p>
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('lifeProspective', true)"
-          >
-            <a class="box box--video box--life">
-              <p class="world-impact">Giving life a prospective.</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?life"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/what-to-do" class="box box--locations">
-              <p>What do to ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/how-to-stay-mentally-fit" class="box box--cost">
-              <p>How to stay mentally fit ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/symptoms" class="box box--locations symptom_box">
-              <p>Coronavirus: Symptoms/Prevention</p>
-            </a>
-          </li>
-        </ul>
+        <header
+          class="section__header"
+          [ngStyle]="{
+            background:
+              'url(https://source.unsplash.com/800x500/?' +
+              state['location'] +
+              ')'
+          }"
+        >
+          <h1 class="section__title" style="color: white;">
+            {{ state['state'] }}
+          </h1>
+          <!-- <p class="section__subtitle" style="color: white;">
+            Effective execution of social distancing is the only viable solution.
+          </p> -->
+        </header>
+        <div class="section__content" id="{{ state.location }}">
+          <ul class="boxgrid" *ngIf="state.location">
+            <li class="boxgrid__item boxgrid__item--wide">
+              <a class="box box--image d-flex-col bg-red">
+                <p class="world-impact fs-3">
+                  Total cases:
+                </p>
+                <p class="fs-3">
+                  {{ state['totalConfirmed'] }}
+                </p>
+              </a>
+            </li>
+            <li class="boxgrid__item">
+              <a class="box box--weather d-flex-col bg-d-blue">
+                <p class="fs-3">Foreign Cases</p>
+                <p class="fs-3">
+                  {{ state['confirmedCasesForeign'] }}
+                </p>
+              </a>
+            </li>
+            <li class="boxgrid__item bg-l-blue">
+              <a class="box box--weather d-flex-col">
+                <p class="fs-3">Indian Cases</p>
+                <p class="fs-3">
+                  {{ state['confirmedCasesIndian'] }}
+                </p>
+              </a>
+            </li>
+            <li class="boxgrid__item bg-dark">
+              <a class="box box--cost d-flex-col">
+                <p class="fs-3">Deaths</p>
+                <p class="fs-3">
+                  {{ state['deaths'] }}
+                </p>
+              </a>
+            </li>
+            <li class="boxgrid__item bg-l-green">
+              <a class="box box--cost d-flex-col">
+                <p class="fs-3">Recovered</p>
+                <p class="fs-3">
+                  {{ state['discharged'] }}
+                </p>
+              </a>
+            </li>
+            <li class="boxgrid__item boxgrid__item--wide">
+              <a class="box box--image d-flex-col bg-d-green">
+                <p class="world-impact fs-3">
+                  Total hospitals
+                </p>
+                <p class="fs-3">
+                  {{ state['totalHospitals'] }}
+                </p>
+              </a>
+            </li>
+            <li class="boxgrid__item">
+              <a class="box box--locations bg-yellow d-flex-col">
+                <p class="fs-3">Urban Hospitals/Beds</p>
+                <p class="fs-3">
+                  {{ state['urbanHospitals'] }} /
+                  {{ state['urbanBeds'] }}
+                </p>
+              </a>
+            </li>
+            <li class="boxgrid__item">
+              <a class="box box--locations social_distancing_box d-flex-col">
+                <p class="fs-3">Rural Hospitals/Beds</p>
+                <p class="fs-3">
+                  {{ state['ruralHospitals'] }} /
+                  {{ state['ruralBeds'] }}
+                </p>
+              </a>
+            </li>
+            <li class="boxgrid__item boxgrid__item--wide">
+              <div class="box box--image d-flex-col bg-pink">
+                <p class="fs-3">Contact Info</p>
+                <div class="fs-3">
+                  Email : {{ contactInfoData['contacts']['primary']['email'] }}
+                </div>
+                <div class="fs-3">
+                  Number :
+                  {{ contactInfoData['contacts']['primary']['number'] }}
+                </div>
+                <div class="fs-3">
+                  Tollfree :
+                  {{
+                    contactInfoData['contacts']['primary']['number-tollfree']
+                  }}
+                </div>
+                <div class="d-flex-row">
+                  <a
+                    target="blank"
+                    [href]="contactInfoData['contacts']['primary']['facebook']"
+                  >
+                    <i
+                      class="fa fa-facebook-square fs-25"
+                      aria-hidden="true"
+                    ></i>
+                  </a>
+                  <a
+                    target="blank"
+                    [href]="contactInfoData['contacts']['primary']['media'][0]"
+                  >
+                    <i class="fa fa-video-camera fs-25" aria-hidden="true"></i>
+                  </a>
+                  <a
+                    target="blank"
+                    [href]="contactInfoData['contacts']['primary']['twitter']"
+                  >
+                    <i
+                      class="fa fa-twitter-square fs-25"
+                      aria-hidden="true"
+                    ></i>
+                  </a>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <ng-container *ngIf="checkDistrictData(state.districts.districtData)">
+            <div class="state-district-header">
+              Districts
+            </div>
+            <div class="district-state-err">
+              *<i class="fa fa-calendar-times-o" aria-hidden="true"></i>
+              District-wise numbers are out-dated as cumulative counts for each
+              district are not reported in bulletin
+            </div>
+            <ul class="boxgrid" style="margin-top: 20px;">
+              <!-- {{state.districts.districtData | json}} -->
+              <li
+                class="boxgrid__item box-grid-district"
+                *ngFor="
+                  let district of state.districts.districtData | keyvalue;
+                  let index
+                "
+              >
+                <a class="box d-flex-col-district">
+                  <p class="district-name">
+                    <i
+                      *ngIf="district.value['notes']"
+                      style="color: white;"
+                      class="fa fa-calendar-times-o"
+                      aria-hidden="true"
+                    ></i>
+                    {{ district.key }}
+                  </p>
+                  <p class="district-text">
+                    Active : {{ district.value['active'] }}
+                  </p>
+                  <p class="district-text">
+                    Confirmed : {{ district.value['confirmed'] }}
+                  </p>
+                  <p class="district-text">
+                    Deaths : {{ district.value['deceased'] }}
+                  </p>
+                  <p class="district-text">
+                    Recovered : {{ district.value['recovered'] }}
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </ng-container>
+        </div>
+      </article>
+    </ng-container>
+    <ng-template #other_content>
+      <div class="section__content d-flex-col mt-50">
+        <img
+          style="width: 550px;"
+          src="../../assets/images/not-found/not-found.svg"
+        />
+        <span class="mt-20 fs-3">
+          Given state not found.
+          <a routerLink="/home">Checkout home for covid details.</a>
+        </span>
       </div>
-    </article>
-    <article class="section" id="vienna" data-section>
-      <header
-        class="section__header"
-        style="background-image: url(https://source.unsplash.com/1200x1200/?india);"
-      >
-        <h1 class="section__title" style="color: white;">Social distancing</h1>
-        <p class="section__subtitle" style="color: white;">
-          Effective execution of social distancing is the only viable solution.
-        </p>
-      </header>
-      <div class="section__content">
-        <ul class="boxgrid">
-          <li class="boxgrid__item">
-            <a routerLink="/home" class="box box--weather">
-              <p>How your country is performing ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/home" class="box box--weather">
-              <p>How your country is performing ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item boxgrid__item--wide">
-            <a
-              (click)="openCovid19Video('pandemicOver', true)"
-              class="box box--image"
-            >
-              <p class="world-impact">
-                When this pendemic will be over ?
-              </p>
-              <img
-                src="../../assets/images/dashboard/covid-world.jpg"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('vaccine', true)"
-          >
-            <a class="box box--video box--life">
-              <p class="world-impact">Vaccine ?</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?vaccine"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/covid-calculator" class="box box--cost">
-              <p>COVID-19 (Coronavirus) Survival Calculator</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/covid-calculator" class="box box--cost">
-              <p>COVID-19 (Coronavirus) Survival Calculator</p>
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('whatIsCovid', true)"
-          >
-            <a class="box box--video">
-              <p class="world-impact">What is covid19 ?</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?covid"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/economy-impact"
-              class="box box--weather economy_box"
-            >
-              <p>How it's going to effect economy ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/economy-impact"
-              class="box box--weather economy_box"
-            >
-              <p>How it's going to effect economy ?</p>
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('lifeProspective', true)"
-          >
-            <a class="box box--video box--life">
-              <p class="world-impact">Giving life a prospective.</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?life"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/what-to-do" class="box box--locations">
-              <p>What do to ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/how-to-stay-mentally-fit" class="box box--cost">
-              <p>How to stay mentally fit ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/symptoms" class="box box--locations symptom_box">
-              <p>Coronavirus: Symptoms/Prevention</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </article>
-    <article class="section" id="vienna" data-section>
-      <header
-        class="section__header"
-        style="background-image: url(https://source.unsplash.com/1200x1200/?india);"
-      >
-        <h1 class="section__title" style="color: white;">Social distancing</h1>
-        <p class="section__subtitle" style="color: white;">
-          Effective execution of social distancing is the only viable solution.
-        </p>
-      </header>
-      <div class="section__content">
-        <ul class="boxgrid">
-          <li class="boxgrid__item">
-            <a routerLink="/home" class="box box--weather">
-              <p>How your country is performing ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/home" class="box box--weather">
-              <p>How your country is performing ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item boxgrid__item--wide">
-            <a
-              (click)="openCovid19Video('pandemicOver', true)"
-              class="box box--image"
-            >
-              <p class="world-impact">
-                When this pendemic will be over ?
-              </p>
-              <img
-                src="../../assets/images/dashboard/covid-world.jpg"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('vaccine', true)"
-          >
-            <a class="box box--video box--life">
-              <p class="world-impact">Vaccine ?</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?vaccine"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/covid-calculator" class="box box--cost">
-              <p>COVID-19 (Coronavirus) Survival Calculator</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/covid-calculator" class="box box--cost">
-              <p>COVID-19 (Coronavirus) Survival Calculator</p>
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('whatIsCovid', true)"
-          >
-            <a class="box box--video">
-              <p class="world-impact">What is covid19 ?</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?covid"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/economy-impact"
-              class="box box--weather economy_box"
-            >
-              <p>How it's going to effect economy ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/economy-impact"
-              class="box box--weather economy_box"
-            >
-              <p>How it's going to effect economy ?</p>
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('lifeProspective', true)"
-          >
-            <a class="box box--video box--life">
-              <p class="world-impact">Giving life a prospective.</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?life"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/what-to-do" class="box box--locations">
-              <p>What do to ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/how-to-stay-mentally-fit" class="box box--cost">
-              <p>How to stay mentally fit ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/symptoms" class="box box--locations symptom_box">
-              <p>Coronavirus: Symptoms/Prevention</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </article>
-    <article class="section" id="vienna" data-section>
-      <header
-        class="section__header"
-        style="background-image: url(https://source.unsplash.com/1200x1200/?india);"
-      >
-        <h1 class="section__title" style="color: white;">Social distancing</h1>
-        <p class="section__subtitle" style="color: white;">
-          Effective execution of social distancing is the only viable solution.
-        </p>
-      </header>
-      <div class="section__content">
-        <ul class="boxgrid">
-          <li class="boxgrid__item">
-            <a routerLink="/home" class="box box--weather">
-              <p>How your country is performing ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/home" class="box box--weather">
-              <p>How your country is performing ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item boxgrid__item--wide">
-            <a
-              (click)="openCovid19Video('pandemicOver', true)"
-              class="box box--image"
-            >
-              <p class="world-impact">
-                When this pendemic will be over ?
-              </p>
-              <img
-                src="../../assets/images/dashboard/covid-world.jpg"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('vaccine', true)"
-          >
-            <a class="box box--video box--life">
-              <p class="world-impact">Vaccine ?</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?vaccine"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/covid-calculator" class="box box--cost">
-              <p>COVID-19 (Coronavirus) Survival Calculator</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/covid-calculator" class="box box--cost">
-              <p>COVID-19 (Coronavirus) Survival Calculator</p>
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('whatIsCovid', true)"
-          >
-            <a class="box box--video">
-              <p class="world-impact">What is covid19 ?</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?covid"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/economy-impact"
-              class="box box--weather economy_box"
-            >
-              <p>How it's going to effect economy ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/economy-impact"
-              class="box box--weather economy_box"
-            >
-              <p>How it's going to effect economy ?</p>
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('lifeProspective', true)"
-          >
-            <a class="box box--video box--life">
-              <p class="world-impact">Giving life a prospective.</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?life"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/what-to-do" class="box box--locations">
-              <p>What do to ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/how-to-stay-mentally-fit" class="box box--cost">
-              <p>How to stay mentally fit ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/symptoms" class="box box--locations symptom_box">
-              <p>Coronavirus: Symptoms/Prevention</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </article>
-    <article class="section" id="vienna" data-section>
-      <header
-        class="section__header"
-        style="background-image: url(https://source.unsplash.com/1200x1200/?india);"
-      >
-        <h1 class="section__title" style="color: white;">Social distancing</h1>
-        <p class="section__subtitle" style="color: white;">
-          Effective execution of social distancing is the only viable solution.
-        </p>
-      </header>
-      <div class="section__content">
-        <ul class="boxgrid">
-          <li class="boxgrid__item">
-            <a routerLink="/home" class="box box--weather">
-              <p>How your country is performing ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/home" class="box box--weather">
-              <p>How your country is performing ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item boxgrid__item--wide">
-            <a
-              (click)="openCovid19Video('pandemicOver', true)"
-              class="box box--image"
-            >
-              <p class="world-impact">
-                When this pendemic will be over ?
-              </p>
-              <img
-                src="../../assets/images/dashboard/covid-world.jpg"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('vaccine', true)"
-          >
-            <a class="box box--video box--life">
-              <p class="world-impact">Vaccine ?</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?vaccine"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/covid-calculator" class="box box--cost">
-              <p>COVID-19 (Coronavirus) Survival Calculator</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/covid-calculator" class="box box--cost">
-              <p>COVID-19 (Coronavirus) Survival Calculator</p>
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('whatIsCovid', true)"
-          >
-            <a class="box box--video">
-              <p class="world-impact">What is covid19 ?</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?covid"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/economy-impact"
-              class="box box--weather economy_box"
-            >
-              <p>How it's going to effect economy ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/economy-impact"
-              class="box box--weather economy_box"
-            >
-              <p>How it's going to effect economy ?</p>
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('lifeProspective', true)"
-          >
-            <a class="box box--video box--life">
-              <p class="world-impact">Giving life a prospective.</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?life"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/what-to-do" class="box box--locations">
-              <p>What do to ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/how-to-stay-mentally-fit" class="box box--cost">
-              <p>How to stay mentally fit ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/symptoms" class="box box--locations symptom_box">
-              <p>Coronavirus: Symptoms/Prevention</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </article>
-    <article class="section" id="vienna" data-section>
-      <header
-        class="section__header"
-        style="background-image: url(https://source.unsplash.com/1200x1200/?india);"
-      >
-        <h1 class="section__title" style="color: white;">Social distancing</h1>
-        <p class="section__subtitle" style="color: white;">
-          Effective execution of social distancing is the only viable solution.
-        </p>
-      </header>
-      <div class="section__content">
-        <ul class="boxgrid">
-          <li class="boxgrid__item">
-            <a routerLink="/home" class="box box--weather">
-              <p>How your country is performing ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/home" class="box box--weather">
-              <p>How your country is performing ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item boxgrid__item--wide">
-            <a
-              (click)="openCovid19Video('pandemicOver', true)"
-              class="box box--image"
-            >
-              <p class="world-impact">
-                When this pendemic will be over ?
-              </p>
-              <img
-                src="../../assets/images/dashboard/covid-world.jpg"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('vaccine', true)"
-          >
-            <a class="box box--video box--life">
-              <p class="world-impact">Vaccine ?</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?vaccine"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/covid-calculator" class="box box--cost">
-              <p>COVID-19 (Coronavirus) Survival Calculator</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/covid-calculator" class="box box--cost">
-              <p>COVID-19 (Coronavirus) Survival Calculator</p>
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('whatIsCovid', true)"
-          >
-            <a class="box box--video">
-              <p class="world-impact">What is covid19 ?</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?covid"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/social-distancing"
-              class="box box--locations social_distancing_box"
-            >
-              <p>Social Distancing : why ? what ? and how ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/economy-impact"
-              class="box box--weather economy_box"
-            >
-              <p>How it's going to effect economy ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a
-              routerLink="/economy-impact"
-              class="box box--weather economy_box"
-            >
-              <p>How it's going to effect economy ?</p>
-            </a>
-          </li>
-          <li
-            class="boxgrid__item boxgrid__item--wide"
-            (click)="openCovid19Video('lifeProspective', true)"
-          >
-            <a class="box box--video box--life">
-              <p class="world-impact">Giving life a prospective.</p>
-              <img
-                src="https://source.unsplash.com/1200x1200/?life"
-                class="box__img"
-                alt=""
-              />
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/what-to-do" class="box box--locations">
-              <p>What do to ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/how-to-stay-mentally-fit" class="box box--cost">
-              <p>How to stay mentally fit ?</p>
-            </a>
-          </li>
-          <li class="boxgrid__item">
-            <a routerLink="/symptoms" class="box box--locations symptom_box">
-              <p>Coronavirus: Symptoms/Prevention</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </article>
+    </ng-template>
   </main>
 
   <jw-modal

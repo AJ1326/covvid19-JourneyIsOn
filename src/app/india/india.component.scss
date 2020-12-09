@@ -4,14 +4,8 @@
   box-sizing: border-box;
 }
 
-body {
-  min-height: 100vh;
-  height: 100%;
-  overflow: hidden;
-  color: #fff;
-  background-color: #121519;
-  font-family: "Montserrat", "Roboto", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+::ng-deep .app-body {
+  overflow-y: hidden !important;
 }
 
 ul,
@@ -23,10 +17,6 @@ ol {
 
 a {
   text-decoration: none;
-}
-
-p {
-  margin: 1rem 0;
 }
 
 .app {
@@ -187,6 +177,8 @@ p {
   font-weight: 200;
   margin-bottom: 0.5rem;
   line-height: 1;
+  padding: 0.5rem;
+  background-color: #00000047;
 }
 .section__subtitle {
   font-size: 1.5rem;
@@ -250,7 +242,7 @@ p {
   -webkit-box-flex: 1;
   flex: 1 0 0;
   position: relative;
-  padding: 2rem;
+  padding: 0.5rem;
   border-radius: 0.5rem;
   font-size: 0.875rem;
   color: #fff;
@@ -264,8 +256,8 @@ p {
 }
 .box:hover,
 .box:focus {
-  -webkit-transform: scale(1.07);
-  transform: scale(1.07);
+  // -webkit-transform: scale(1.07);
+  // transform: scale(1.07);
   -webkit-filter: brightness(110%);
   filter: brightness(110%);
   z-index: 10;
@@ -487,4 +479,165 @@ button:focus {
 }
 .content-wrapper {
   position: fixed;
+}
+.d-flex-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.d-flex-row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.fs-3 {
+  font-size: 18px;
+}
+.fs-25 {
+  font-size: 25px;
+  color: white;
+}
+
+//  color
+
+.bg-red {
+  background-color: #f44336;
+}
+
+.bg-d-blue {
+  background-color: #3f51b5;
+}
+
+.bg-l-blue {
+  background-color: #2196f3;
+}
+
+.bg-dark {
+  background-color: #2e2f2f;
+}
+
+.bg-l-green {
+  background-color: #8bc34a;
+}
+
+.bg-d-green {
+  background-color: #009688;
+}
+
+.bg-yellow {
+  background-color: #ffc107 !important;
+}
+
+.bg-pink {
+  background-color: #e91e63;
+}
+
+// Search bar
+
+.header__left {
+  width: 100%;
+}
+
+.header__left input {
+  background-color: #f2f8f9;
+  border-bottom: 1px solid #00000047 !important;
+  border-radius: 5px;
+  border: 0;
+  font-size: 25px;
+}
+
+.header__right {
+  right: 20px;
+  margin-top: 5px;
+  position: absolute;
+}
+
+.header__right i {
+  font-size: 26px;
+}
+
+.mt-50 {
+  margin-top: 50px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.state-district-header {
+  font-size: 3.5rem;
+  font-weight: 200;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+  padding: 0.5rem;
+  background-color: #00000047;
+  color: white;
+  margin-top: 50px;
+}
+
+// Search bar
+.search-bar-dropdown {
+  width: 100%;
+  height: 200px;
+  right: 0;
+  left: 0;
+  background-color: white;
+  position: absolute;
+  z-index: 9;
+  top: 135px;
+  overflow-y: auto;
+  box-shadow: 0px 1px 12px 5px #0000001c;
+}
+
+.search-bar-dropdown p {
+  font-size: 2rem;
+  padding: 10px 20px 10px 20px;
+  color: black;
+  line-height: 30px;
+}
+
+.search-bar-dropdown p:hover {
+  color: white;
+  background-color: #00000047;
+}
+
+.d-flex-col-district {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #00000080 !important;
+}
+
+.d-flex-col-district .district-name {
+  width: 100%;
+  font-size: 24px;
+  margin-bottom: 0;
+}
+
+.district-text {
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+.district-state-err {
+  color: red;
+  font-size: 12px;
+}
+
+.box-grid-district {
+  grid-column: span 2;
+}
+
+@media only screen and (max-width: 500px) {
+  .d-flex-col-district .district-name {
+    font-size: 16px;
+  }
+  .box-grid-district {
+    grid-column: span 1;
+  }
 }

@@ -1,5 +1,5 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
-  <ul class="nav" (click)="toggleSidebar()">
+  <ul class="nav">
     <li class="nav-item nav-profile">
       <div class="nav-link">
         <!--        <div class="user-wrapper">-->
@@ -14,13 +14,16 @@
         <!--            </div>-->
         <!--          </div>-->
         <!--        </div>-->
-        <button class="btn btn-success btn-block">
+        <button
+          class="btn btn-success btn-block"
+          (click)="openModal('initiative-modal')"
+        >
           Initiative
           <i class="mdi mdi-plus"></i>
         </button>
       </div>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" (click)="toggleSidebar()">
       <a
         class="nav-link"
         routerLink="/home-dashboard"
@@ -30,19 +33,19 @@
         <span class="menu-title">Home</span>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" (click)="toggleSidebar()">
       <a class="nav-link" routerLink="/age-sex-ratio" routerLinkActive="active">
         <i class="menu-icon mdi mdi-notification-clear-all"></i>
         <span class="menu-title">Age/Sex Impact</span>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" (click)="toggleSidebar()">
       <a class="nav-link" routerLink="/home" routerLinkActive="active">
         <i class="menu-icon mdi mdi-dna"></i>
         <span class="menu-title">Your country performance.</span>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" (click)="toggleSidebar()">
       <a
         class="nav-link"
         routerLink="/transmission-rate"
@@ -52,29 +55,112 @@
         <span class="menu-title">Transmission rate of covid19.</span>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" (click)="toggleSidebar()">
       <a class="nav-link" routerLink="/symptoms" routerLinkActive="active">
         <i class="menu-icon mdi mdi-texture"></i>
         <span class="menu-title">What are the symptoms ?</span>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" (click)="toggleSidebar()">
       <a class="nav-link" routerLink="/prevention" routerLinkActive="active">
         <i class="menu-icon mdi mdi-content-copy"></i>
         <span class="menu-title">How to prevent ?</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/news" routerLinkActive="active">
+    <li class="nav-item" (click)="toggleSidebar()">
+      <a class="nav-link" routerLink="/news/covid19" routerLinkActive="active">
         <i class="menu-icon mdi mdi-lightbulb-outline"></i>
         <span class="menu-title">News around the world.</span>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" (click)="toggleSidebar()">
       <a class="nav-link" routerLink="/world-map" routerLinkActive="active">
         <i class="menu-icon mdi mdi-backup-restore"></i>
         <span class="menu-title">World</span>
       </a>
     </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        routerLinkActive="active"
+        href="https://abhishekjaimini.xyz"
+        target="blank"
+      >
+        <i class="menu-icon mdi mdi-account-circle"></i>
+        <span class="menu-title">About me</span>
+      </a>
+    </li>
+    <li class="nav-item nav-profile">
+      <div class="nav-link">
+        <button class="btn download-app btn-block">
+          Save App !!
+        </button>
+      </div>
+    </li>
   </ul>
 </nav>
+
+<div (click)="toggleSidebar()" class="overlay-close"></div>
+
+<div class="modals">
+  <!-- the same view can be shown in more than one case -->
+  <jw-modal id="initiative-modal">
+    <div>
+      <div class="dashboard-header">
+        <i
+          (click)="closeModal('initiative-modal')"
+          class="mdi mdi-close text-danger icon-lg"
+        ></i>
+      </div>
+      <div class="dfc">
+        <h1>JourneyIsOn</h1>
+        <span>
+          Covid has impacted us in several ways whether it's economy, job,
+          anxiety. Staying away from loved ones. We all are having hard time, in
+          one way or another. But There is always a positive aspect to every
+          negative situation out there. It's just about changing that prospect.
+          <br />
+          Darker times, some have lost their loved ones, some are ill and some
+          of us have find peace with it but I believe, this is one of those
+          momemts in life that will change everyone of us for better no matter
+          what. These are the times that push human race forward.
+          <br />Just stick to it. #StayHealthyAndStayBlessed
+        </span>
+        <span>
+          Our mission is to make people aware about the current situation and
+          it's aftermath so, we all can take effective measures for the global
+          pandemic that we are facing today and can help the people who are in
+          need. We all can do something for each other. We all are in this
+          together.<br />
+          #WeAreTogether #JourneyIsOn
+        </span>
+        <span>
+          Covid19 will not ruin you. It will reveal you. If you are resilient
+          before this, it's just another fucking challenge and If not then it's
+          time to know that how strong you can be.
+        </span>
+      </div>
+    </div>
+  </jw-modal>
+
+  <jw-modal id="about-me">
+    <div>
+      <div class="dashboard-header">
+        <i
+          (click)="closeModal('about-me')"
+          class="mdi mdi-close text-danger icon-lg"
+        ></i>
+      </div>
+      <iframe
+        style="width: 100%;
+            height: 650px;"
+        class="embed-responsive-item"
+        src="https://www.youtube.com/embed/E44kFkyl_Y8?rel=0"
+        allowfullscreen=""
+      >
+      </iframe>
+    </div>
+  </jw-modal>
+
+  <!--default case when there are no matches -->
+</div>

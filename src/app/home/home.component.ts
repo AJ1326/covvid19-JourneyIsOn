@@ -54,11 +54,44 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isLoading = true;
     this.getWorldData();
   }
 
+  public getCountryViaIp() {
+    this.homeService
+      .getIpLocation()
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe(
+        (data: any) => {
+          if (data.country_code2 === 'IN') {
+            const payload = {
+              country: data.country_name,
+              district: data.district,
+              state: data.state_prov,
+              data: true
+            };
+            localStorage.setItem('IndiaData', JSON.stringify(payload));
+          } else {
+            const payload = {
+              data: false
+            };
+            localStorage.setItem('IndiaData', JSON.stringify(payload));
+          }
+          this.selectCountryModal(data.country_code2);
+        },
+        (error: any) => {
+          // log.debug(`Select program error: ${error}`);
+          this.error = error;
+        }
+      );
+  }
+
   public getWorldData() {
+    this.isLoading = true;
     this.homeService
       .getSummary()
       .pipe(
@@ -86,13 +119,23 @@ export class HomeComponent implements OnInit {
               delete obj[old_key]; // delete old key
             }
           }
-          dataCountry.forEach((obj: any) => renameKey(obj, 'Country', 'label'));
-          dataCountry.forEach((obj: any) =>
-            renameKey(obj, 'CountryCode', 'value')
-          );
-          dataCountry.unshift(this.globalDetails);
-          this.countryDetails = dataCountry;
-          // this.chartData(this.countryDetails);
+          if (this.summary['Global']['TotalConfirmed'] === 0) {
+            if (confirm(this.summary['Message'])) {
+              location.reload();
+            } else {
+              this.getWorldData();
+            }
+          } else {
+            dataCountry.forEach((obj: any) =>
+              renameKey(obj, 'Country', 'label')
+            );
+            dataCountry.forEach((obj: any) =>
+              renameKey(obj, 'CountryCode', 'value')
+            );
+            dataCountry.unshift(this.globalDetails);
+            this.countryDetails = dataCountry;
+            this.getCountryViaIp();
+          }
         },
         (error: any) => {
           // log.debug(`Select program error: ${error}`);
@@ -121,19 +164,20 @@ export class HomeComponent implements OnInit {
     this.selectedCountryData = this.countryDetails.find(obj => {
       return obj.value === selected_country_iso;
     });
-    console.log(this.selectedCountryData, 'selected country');
   }
 
   showDetailCountryData() {
-    this.openModal('custom-modal-1');
+    this.openModal('custom-modal-2');
   }
 
   showNews() {
     localStorage.setItem(
       'selectedCntry',
-      JSON.stringify(this.selectedCountryData)
+      JSON.stringify(
+        this.selectedCountryData ? this.selectedCountryData : 'World'
+      )
     );
-    this.router.navigate(['news', 'Top-news']);
+    this.router.navigate(['news', 'covid']);
   }
 
   openModal(id: string) {
@@ -206,7 +250,6 @@ export class HomeComponent implements OnInit {
         'Recovered'
       ];
       const newArray = [fieldCountryDetails].concat(countryMapData);
-      console.log('new array:', newArray);
       const data = google.visualization.arrayToDataTable(newArray);
 
       const options = {
@@ -220,20 +263,11 @@ export class HomeComponent implements OnInit {
       // tslint:disable-next-line:only-arrow-functions
       google.visualization.events.addListener(chart, 'select', function() {
         const selectedItem = chart.getSelection()[0];
-        console.log('selectedItem', selectedItem);
+        // console.log('selectedItem', selectedItem);
 
         if (selectedItem) {
           const country = data.getValue(selectedItem.row, 0);
-          console.log('selectedItem country', country);
-
-          // google.charts.setOnLoadCallback(drawMarkersMap);
-
-          // if (ivalue[country] !== '') {
-          //   document.getElementById('message').innerHTML = ivalue[country];
-          // }
-          // if (name[country] !== '') {
-          //   document.getElementById('name').innerHTML = name[country];
-          // }
+          // console.log('selectedItem country', country);
         }
       });
 

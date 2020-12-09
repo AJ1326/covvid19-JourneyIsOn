@@ -44,7 +44,6 @@ export class CountryWiseModalComponent implements OnInit, OnChanges {
   dailyDeathsDoublingRate: any[];
   dailyRecoveredDoublingRate: any[];
   dailyMoratalityRate: any[];
-  mortalityGrowthRate: any;
   confirmDoublingGrowthRate: any;
   recoverDoublingGrowthRate: any;
   deathDoublingGrowthRate: any;
@@ -60,26 +59,31 @@ export class CountryWiseModalComponent implements OnInit, OnChanges {
   futureDate = new Date();
   showDateError = false;
   infectionRate: any;
+  showDistrictWiseData = false;
 
   @Input() selectedCountryDetails: any;
   @Input() globalDetails: any;
-  @Input() predictiveModal = true;
+  // TODO: 1: Hold up for now: pretty drastic it is.
+  // @Input() predictiveModal = true;
 
   constructor(private countryTableService: CountryTableService) {}
 
   ngOnChanges(changes: SimpleChanges) {
+    // TODO: 1
     // this.predictiveModal = changes.predictiveModal.currentValue;
     this.calculateCountryWiseData(changes.selectedCountryDetails.currentValue);
-    // console.log('this.predictiveModal change', this.predictiveModal);
     // You can also use categoryId.previousValue and
     // categoryId.firstChange for comparing old and new values
   }
 
-  ngOnInit() {
-    // console.log('this.predictiveModal', this.predictiveModal);
-  }
+  ngOnInit() {}
 
   calculateCountryWiseData(selectedCntry: any) {
+    if (selectedCntry.value === 'IN') {
+      this.showDistrictWiseData = true;
+    } else {
+      this.showDistrictWiseData = false;
+    }
     this.selectedCountryData = selectedCntry;
     this.globalData = this.globalDetails;
     this.callCountryWiseData(this.selectedCountryData['value']);
@@ -141,10 +145,10 @@ export class CountryWiseModalComponent implements OnInit, OnChanges {
   }
 
   callCountryPopulationData(selectedCntry: any) {
-    console.log('selectedCntry search all country population', selectedCntry);
+    // console.log('selectedCntry search all country population', selectedCntry);
     const k = selectedCntry.replace(/-/g, ' ');
     const selected_cntry = k.replace(/\b[a-z]/g, (x: any) => x.toUpperCase());
-    console.log('selected country', selected_cntry);
+    // console.log('selected country', selected_cntry);
     this.countryTableService
       .callCountryPopulation()
       .pipe(
@@ -158,7 +162,6 @@ export class CountryWiseModalComponent implements OnInit, OnChanges {
           const country = this.allcountryPopulation.find((a: any) =>
             a.includes(selected_cntry)
           );
-          console.log('country selected ffrom list of cpuntries', country);
           this.callCountryWisePopulationData(country);
         },
         (error: any) => {
@@ -169,7 +172,6 @@ export class CountryWiseModalComponent implements OnInit, OnChanges {
   }
 
   callCountryWisePopulationData(slug: any) {
-    console.log('slug for which country needed', slug);
     this.countryTableService
       .callCountryWisePopulation(slug)
       .pipe(
@@ -180,7 +182,6 @@ export class CountryWiseModalComponent implements OnInit, OnChanges {
       .subscribe(
         (data: any) => {
           this.countryPopulation = data.body.population;
-          console.log('this.countryPopulation', this.countryPopulation);
           this.calculateInfectionRate(this.countryPopulation);
         },
         (error: any) => {
@@ -198,7 +199,8 @@ export class CountryWiseModalComponent implements OnInit, OnChanges {
   ) {
     //  Chart data
     this.chartLineOptions = {
-      responsive: true
+      responsive: true,
+      maintainAspectRatio: false
     };
     this.chartLineData = [
       { data: confirmedCases, label: 'confirmed cases' },
@@ -214,18 +216,7 @@ export class CountryWiseModalComponent implements OnInit, OnChanges {
     deathCases: any
   ) {
     this.calculateMortalityRate();
-    this.calculateMortalityRateOverTime();
     this.calculateGrowthRateOverTime(
-      confirmedCases,
-      recoveredCases,
-      deathCases
-    );
-    this.calculateDailyGrowthRateOverTime(
-      confirmedCases,
-      recoveredCases,
-      deathCases
-    );
-    this.calculateDoublingRateOverTime(
       confirmedCases,
       recoveredCases,
       deathCases
@@ -239,42 +230,22 @@ export class CountryWiseModalComponent implements OnInit, OnChanges {
     this.mortalityRate =
       this.selectedCountryData['TotalDeaths'] /
       this.selectedCountryData['TotalConfirmed'];
+    console.log('this.mortalityRate', this.mortalityRate);
   }
 
   // MortalityRate overall
   public calculateInfectionRate(population: any) {
-    // Fatality rate over period of time.
-    console.log(
-      'total confirmed',
-      this.selectedCountryData['TotalConfirmed'],
-      'Population',
-      population
-    );
-    this.infectionRate =
-      this.selectedCountryData['TotalConfirmed'] / population;
-    console.log('this.infectionRate', this.infectionRate);
-    this.totalInfetedByToday(this.infectionRate);
+    if (population !== undefined || population !== null || population !== '') {
+      this.infectionRate =
+        this.selectedCountryData['TotalConfirmed'] / population;
+      // console.log('this.infectionRate', this.infectionRate);
+    }
   }
 
-  // Total estimeted cases by today
-  public totalInfetedByToday(infectionRate: any) {
-    const days = this.calculateDaysBetween2Dates(
-      this.countryData[0]['Date'],
-      Date.now()
-    );
-    console.log('days till now', days);
-    console.log('infectionRate', infectionRate);
-    const N = Math.exp(infectionRate.days);
-    console.log('current exp cases', N);
-  }
-
-  // MortalityRate daily / MortalityGrowthRate over time
+  // MortalityRate daily
   public calculateMortalityRateOverTime() {
     this.dailyMoratalityRate = this.countryData.map(
       (data: any) => data['Deaths'] / data['Confirmed']
-    );
-    this.mortalityGrowthRate = this.calculateGrowthRateOfArray(
-      this.dailyMoratalityRate
     );
   }
 
@@ -299,113 +270,45 @@ export class CountryWiseModalComponent implements OnInit, OnChanges {
     recoveredCases: any,
     deathCases: any
   ) {
+    let predicate = (x: any) => x >= 100;
+    const confirmedDaysArr = confirmedCases.filter(predicate);
+    const recoveredDaysArr = confirmedCases.filter(predicate);
+    const deadDaysArr = confirmedCases.filter(predicate);
     this.confirmedGrowthRate =
       Math.pow(
         this.selectedCountryData['TotalConfirmed'] / 100,
-        1 / confirmedCases.length
+        1 / confirmedDaysArr.length
       ) - 1;
     this.recoveredGrowthRate =
       Math.pow(
         this.selectedCountryData['TotalRecovered'] / 100,
-        1 / recoveredCases.length
+        1 / recoveredDaysArr.length
       ) - 1;
     this.deathGrowthRate =
       Math.pow(
         this.selectedCountryData['TotalDeaths'] / 100,
-        1 / deathCases.length
+        1 / deadDaysArr.length
       ) - 1;
+
+    // console.log('this.confirmedGrowthRate', this.confirmedGrowthRate)
+    // console.log('this.recoveredGrowthRate', this.recoveredGrowthRate)
+    // console.log('this.deathGrowthRate', this.deathGrowthRate)
   }
 
   public doublingRateCalculator(today: any, before: any, days: any) {
     return days / (Math.log2(today) - Math.log2(before));
   }
 
-  // DoublingRate over time after 100 cases.(Daily and GrowthRate of doubling rate)
-  public calculateDoublingRateOverTime(
-    confirmedCases: any,
-    recoveredCases: any,
-    deathCases: any
-  ) {
-    this.dailyConfirmedDoublingRate = this.countryData
-      .map((data: any, index) => {
-        if (data.Confirmed >= 100) {
-          const days = this.calculateDaysBetween2Dates(
-            data.Date,
-            this.countryData[index - 1].Date
-          );
-          return this.doublingRateCalculator(
-            data.Confirmed,
-            this.countryData[index - 1].Confirmed,
-            days
-          );
-        } else {
-          return 0;
-        }
-      })
-      .filter(val => val > 0);
-
-    this.dailyRecoveredDoublingRate = this.countryData
-      .map((data: any, index) => {
-        if (data.Confirmed >= 100) {
-          const days = this.calculateDaysBetween2Dates(
-            data.Date,
-            this.countryData[index - 1].Date
-          );
-          return this.doublingRateCalculator(
-            data.Recovered,
-            this.countryData[index - 1].Recovered,
-            days
-          );
-        } else {
-          return 0;
-        }
-      })
-      .filter(val => val > 0);
-
-    this.dailyDeathsDoublingRate = this.countryData
-      .map((data: any, index) => {
-        if (data.Confirmed >= 100) {
-          const days = this.calculateDaysBetween2Dates(
-            data.Date,
-            this.countryData[index - 1].Date
-          );
-          return this.doublingRateCalculator(
-            data.Deaths,
-            this.countryData[index - 1].Deaths,
-            days
-          );
-        } else {
-          return 0;
-        }
-      })
-      .filter(val => val > 0);
-
-    this.confirmDoublingGrowthRate = this.calculateGrowthRateOfArray(
-      this.dailyConfirmedDoublingRate
-    );
-    this.recoverDoublingGrowthRate = this.calculateGrowthRateOfArray(
-      this.dailyDeathsDoublingRate
-    );
-    this.deathDoublingGrowthRate = this.calculateGrowthRateOfArray(
-      this.dailyRecoveredDoublingRate
-    );
-  }
-
   // DoublingRate over time (overall)
   public calculateDoublingRateOverAll() {
-    const days = this.calculateDaysBetween2Dates(
-      this.selectedCountryData['Date'],
-      this.countryData[0].Date
-    );
     this.doublingConfirmRateOverAll =
-      days /
-      (Math.log2(this.selectedCountryData['TotalConfirmed']) - Math.log2(1));
-    this.doublingDeathRateOverAll =
-      days /
-      (Math.log2(this.selectedCountryData['TotalDeaths']) - Math.log2(1));
+      1 / Math.log2(1 + this.confirmedGrowthRate);
     this.doublingRecoveredRateOverAll =
-      days /
-      (Math.log2(this.selectedCountryData['TotalRecovered']) - Math.log2(1));
+      1 / Math.log2(1 + this.recoveredGrowthRate);
+    this.doublingDeathRateOverAll = 1 / Math.log2(1 + this.deathGrowthRate);
+    // console.log('this.doublingConfirmRateOverAll', this.doublingConfirmRateOverAll)
+    // console.log('this.doublingDeathRateOverAll', this.doublingDeathRateOverAll)
+    // console.log('this.doublingRecoveredRateOverAll', this.doublingRecoveredRateOverAll)
   }
 
   // Calculate days between 2 days.
@@ -422,124 +325,124 @@ export class CountryWiseModalComponent implements OnInit, OnChanges {
     return (today - before) / before;
   }
 
-  public calculateDailyGrowthRateOverTime(
-    confirmedCases: any,
-    recoveredCases: any,
-    deathCases: any
-  ) {
-    this.dailyConfirmedGrowthRate = this.countryData
-      .map((data: any, index) => {
-        if (data.Confirmed >= 1) {
-          const val =
-            data.Confirmed === 1
-              ? '0'
-              : this.countryData[index - 1]['Confirmed'];
-          if (val === '0') {
-            return 1;
-          } else {
-            return this.dailyGrowthCalculator(data.Confirmed, val);
-          }
-        } else {
-          return 0;
-        }
-      })
-      .filter(val => val > 0);
+  // public calculateDailyGrowthRateOverTime(
+  //   confirmedCases: any,
+  //   recoveredCases: any,
+  //   deathCases: any
+  // ) {
+  //   this.dailyConfirmedGrowthRate = this.countryData
+  //     .map((data: any, index) => {
+  //       if (data.Confirmed >= 1) {
+  //         const val =
+  //           data.Confirmed === 1
+  //             ? '0'
+  //             : this.countryData[index - 1]['Confirmed'];
+  //         if (val === '0') {
+  //           return 1;
+  //         } else {
+  //           return this.dailyGrowthCalculator(data.Confirmed, val);
+  //         }
+  //       } else {
+  //         return 0;
+  //       }
+  //     })
+  //     .filter(val => val > 0);
 
-    this.dailyRecoveredGrowthRate = this.countryData
-      .map((data: any, index) => {
-        if (data.Recovered >= 1) {
-          const val =
-            data.Recovered === 1
-              ? '0'
-              : this.countryData[index - 1]['Recovered'];
-          if (val === '0') {
-            return 1;
-          } else {
-            return this.dailyGrowthCalculator(data.Recovered, val);
-          }
-        } else {
-          return 0;
-        }
-      })
-      .filter(val => val > 0);
+  //   this.dailyRecoveredGrowthRate = this.countryData
+  //     .map((data: any, index) => {
+  //       if (data.Recovered >= 1) {
+  //         const val =
+  //           data.Recovered === 1
+  //             ? '0'
+  //             : this.countryData[index - 1]['Recovered'];
+  //         if (val === '0') {
+  //           return 1;
+  //         } else {
+  //           return this.dailyGrowthCalculator(data.Recovered, val);
+  //         }
+  //       } else {
+  //         return 0;
+  //       }
+  //     })
+  //     .filter(val => val > 0);
 
-    this.dailyDeathsGrowthRate = this.countryData
-      .map((data: any, index) => {
-        if (data.Deaths >= 1) {
-          const val =
-            data.Deaths === 1 ? '0' : this.countryData[index - 1]['Deaths'];
-          if (val === '0') {
-            return 1;
-          } else {
-            return this.dailyGrowthCalculator(data.Deaths, val);
-          }
-        } else {
-          return 0;
-        }
-      })
-      .filter(val => val > 0);
+  //   this.dailyDeathsGrowthRate = this.countryData
+  //     .map((data: any, index) => {
+  //       if (data.Deaths >= 1) {
+  //         const val =
+  //           data.Deaths === 1 ? '0' : this.countryData[index - 1]['Deaths'];
+  //         if (val === '0') {
+  //           return 1;
+  //         } else {
+  //           return this.dailyGrowthCalculator(data.Deaths, val);
+  //         }
+  //       } else {
+  //         return 0;
+  //       }
+  //     })
+  //     .filter(val => val > 0);
 
-    this.calculateAverageGrowthRate(
-      this.dailyConfirmedGrowthRate,
-      this.dailyRecoveredGrowthRate,
-      this.dailyDeathsGrowthRate
-    );
-  }
+  //   this.calculateAverageGrowthRate(
+  //     this.dailyConfirmedGrowthRate,
+  //     this.dailyRecoveredGrowthRate,
+  //     this.dailyDeathsGrowthRate
+  //   );
+  // }
 
-  public calculateAverageGrowthRate(
-    dailyConfirmedGrowthRate: any,
-    dailyRecoveredGrowthRate: any,
-    dailyDeathsGrowthRate: any
-  ) {
-    this.averageConfirmedGrowthRate = this.calculateAverageRateOfArray(
-      dailyConfirmedGrowthRate
-    );
-    this.averageRecoveredGrowthRate = this.calculateAverageRateOfArray(
-      dailyRecoveredGrowthRate
-    );
-    this.averageDeathsGrowthRate = this.calculateAverageRateOfArray(
-      dailyDeathsGrowthRate
-    );
-    console.log(
-      'this.cumilativeConfirmedGrowthRate',
-      this.averageConfirmedGrowthRate
-    );
-  }
+  // public calculateAverageGrowthRate(
+  //   dailyConfirmedGrowthRate: any,
+  //   dailyRecoveredGrowthRate: any,
+  //   dailyDeathsGrowthRate: any
+  // ) {
+  //   this.averageConfirmedGrowthRate = this.calculateAverageRateOfArray(
+  //     dailyConfirmedGrowthRate
+  //   );
+  //   this.averageRecoveredGrowthRate = this.calculateAverageRateOfArray(
+  //     dailyRecoveredGrowthRate
+  //   );
+  //   this.averageDeathsGrowthRate = this.calculateAverageRateOfArray(
+  //     dailyDeathsGrowthRate
+  //   );
+
+  //   console.log('this.averageConfirmedGrowthRate', this.averageConfirmedGrowthRate)
+  //   console.log('this.averageRecoveredGrowthRate', this.averageRecoveredGrowthRate)
+  //   console.log('this.dailyDeathsGrowthRate', this.dailyDeathsGrowthRate)
+  // }
 
   public calculateDailyGrowthRate(
     confirmedCases: any,
     recoveredCases: any,
     deathCases: any
   ) {
-    console.log('confirmedCases', confirmedCases);
+    console.log('this.selectedCountryData', this.selectedCountryData);
     console.log(
-      'confirmedCases[confirmedCases.length - 1]',
+      'confirmedCases[confirmedCases.length - 2]',
       confirmedCases[confirmedCases.length - 2]
     );
+    console.log('confirmedCases', confirmedCases);
     this.confirmedDailyGrowthRate =
       (this.selectedCountryData['NewConfirmed'] /
-        confirmedCases[confirmedCases.length - 2]) *
+        confirmedCases[confirmedCases.length - 1]) *
       100;
     const confirmedDailyGrowthRate1 =
       this.selectedCountryData['NewConfirmed'] /
       confirmedCases[confirmedCases.length - 2];
     console.log(
       'Expected cases tomm',
-      confirmedDailyGrowthRate1 * confirmedCases[confirmedCases.length - 1] +
-        confirmedCases[confirmedCases.length - 1]
+      confirmedDailyGrowthRate1 * confirmedCases[confirmedCases.length - 1]
     );
-    this.recoveredDailyGrowthRate =
-      (this.selectedCountryData['NewRecovered'] /
-        recoveredCases[recoveredCases.length - 2]) *
-      100;
-    this.deathDailyGrowthRate =
-      (this.selectedCountryData['NewDeaths'] /
-        deathCases[deathCases.length - 2]) *
-      100;
+    // this.recoveredDailyGrowthRate =
+    //   (this.selectedCountryData['NewRecovered'] /
+    //     recoveredCases[recoveredCases.length - 2]) *
+    //   100;
+    // this.deathDailyGrowthRate =
+    //   (this.selectedCountryData['NewDeaths'] /
+    //     deathCases[deathCases.length - 2]) *
+    //   100;
   }
 
   public openPredictiveAnalysis() {
-    this.predictiveModal = !this.predictiveModal;
+    // this.predictiveModal = !this.predictiveModal;
   }
 
   calculateCurrentDateCases(
@@ -584,6 +487,26 @@ export class CountryWiseModalComponent implements OnInit, OnChanges {
         this.selectedCountryData['NewDeaths'],
         this.selectedCountryData['TotalDeaths']
       );
+    }
+  }
+
+  public showBarValue(value: any) {
+    let data: any;
+    switch (value) {
+      case 'percInfected':
+        return (
+          (this.selectedCountryData['TotalConfirmed'] /
+            this.globalData['TotalConfirmed']) *
+          100
+        ).toFixed(2);
+        break;
+      case 'deadPerMillion':
+        return (
+          (this.selectedCountryData['TotalDeaths'] / this.countryPopulation) *
+          10000
+        ).toFixed(2);
+        break;
+      default:
     }
   }
 

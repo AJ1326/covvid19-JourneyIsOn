@@ -1,9 +1,5 @@
-{{ chartLineData }} {{ countryPopulation }} {{ predictiveModal }}
-<div
-  class="row"
-  *ngIf="chartLineData && countryPopulation !== null && predictiveModal"
->
-  <div class="col-lg-6 row grid-margin stretch-card">
+<div class="row" *ngIf="chartLineData && countryPopulation !== null">
+  <div class="col-lg-6 row grid-margin stretch-card ml-2">
     <div class="card">
       <div class="card-body">
         <div class="container-world-heading">
@@ -32,6 +28,10 @@
                 <div class="fluid-container">
                   <h3 class="font-weight-medium text-right mb-0">
                     {{ selectedCountryData['TotalConfirmed'] }}
+                    <span class="confirmed-gr-rate">
+                      ({{ (confirmedGrowthRate * 100).toFixed(2) }}
+                      <i class="fa fa-long-arrow-up" aria-hidden="true"></i>)
+                    </span>
                   </h3>
                 </div>
               </div>
@@ -56,6 +56,10 @@
                 <div class="fluid-container">
                   <h3 class="font-weight-medium text-right mb-0">
                     {{ selectedCountryData['TotalRecovered'] }}
+                    <span class="recovered-gr-rate">
+                      ({{ (recoveredGrowthRate * 100).toFixed(2) }}
+                      <i class="fa fa-long-arrow-up" aria-hidden="true"></i>)
+                    </span>
                   </h3>
                 </div>
               </div>
@@ -80,6 +84,10 @@
                 <div class="fluid-container">
                   <h3 class="font-weight-medium text-right mb-0">
                     {{ selectedCountryData['TotalDeaths'] }}
+                    <span class="dead-gr-rate">
+                      ({{ (deathGrowthRate * 100).toFixed(2) }}
+                      <i class="fa fa-long-arrow-up" aria-hidden="true"></i>)
+                    </span>
                   </h3>
                 </div>
               </div>
@@ -139,14 +147,30 @@
               <span style="color: black;">#StayUpdated</span>
             </p>
           </div>
+          <div
+            *ngIf="showDistrictWiseData"
+            class="newscard"
+            style="cursor: pointer;"
+            routerLink="/my-india"
+          >
+            <div class="clearfix district-india-btn">
+              Checkout how your state and district are performing ?
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-lg-6 row grid-margin stretch-card">
+  <div class="col-lg-6 row grid-margin stretch-card ml-2">
     <div class="card">
       <div class="card-body">
-        <h2 class="card-title text-primary mb-5">Performance History</h2>
+        <h2 class="card-title text-primary">Performance History</h2>
+        <span class="performance-statement"
+          >*Well, confirmed cases are directly proportional to testing. As you
+          can see that growth rate is somewhat same. <br />
+          While the infected people are much more higher and so is the death
+          rate.
+        </span>
         <div class="wrapper d-flex justify-content-between">
           <div class="side-left">
             <p class="mb-2">Morality rate</p>
@@ -159,26 +183,26 @@
                 ).toFixed(2)
               }}%
             </p>
-            <p class="mb-2">The best performance</p>
-            <p class="display-3 mb-4 font-weight-light">+45.2%</p>
-            <p class="mb-2">The best performance</p>
-            <p class="display-3 mb-4 font-weight-light">+45.2%</p>
+            <p class="mb-2">Infection rate</p>
+            <p class="display-3 mb-4 font-weight-light">
+              {{ (infectionRate * 100).toFixed(2) }}%
+            </p>
+            <p class="mb-2">Doubling rate</p>
+            <p class="display-3 mb-4 font-weight-light doubling-rate-p">
+              <span class="doubling-rate">
+                {{ doublingConfirmRateOverAll.toFixed(2) }} days
+                <span class="doubling-rate-type">(confirmed)</span>
+              </span>
+              <span class="doubling-rate">
+                {{ doublingRecoveredRateOverAll.toFixed(2) }} days
+                <span class="doubling-rate-type">(recovered)</span>
+              </span>
+              <span class="doubling-rate"
+                >{{ doublingDeathRateOverAll.toFixed(2) }} days
+                <span class="doubling-rate-type">(deaths)</span>
+              </span>
+            </p>
           </div>
-          <div class="side-right">
-            <small class="text-muted">2017</small>
-          </div>
-        </div>
-        <div class="wrapper d-flex justify-content-between">
-          <div class="side-left">
-            <p class="mb-2">Worst performance</p>
-            <p class="display-3 mb-5 font-weight-light">-35.3%</p>
-          </div>
-          <div class="side-right">
-            <small class="text-muted">2015</small>
-          </div>
-        </div>
-        <div class="predictive-analysis" (click)="openPredictiveAnalysis()">
-          Checkout the predictive analysis.
         </div>
         <div class="wrapper">
           <div class="d-flex justify-content-between">
@@ -192,16 +216,17 @@
                   (selectedCountryData.TotalConfirmed /
                     globalData.TotalConfirmed) *
                   100
-                ).toFixed(2)
+                ).toFixed(4)
               }}%
             </p>
           </div>
           <div class="progress">
             <div
-              class="progress-bar bg-primary progress-bar-striped progress-bar-animated"
+              class="progress-bar bg-infected progress-bar-striped progress-bar-animated"
               role="progressbar"
               aria-valuemin="0"
               aria-valuemax="100"
+              [ngStyle]="{ width: showBarValue('percInfected') + '%' }"
             ></div>
           </div>
         </div>
@@ -212,7 +237,7 @@
                 (
                   (selectedCountryData.TotalDeaths / countryPopulation) *
                   1000000
-                ).toFixed(2)
+                ).toFixed(4)
               }}
               deaths in 1 million people.
             </p>
@@ -220,24 +245,25 @@
               {{
                 (
                   (selectedCountryData.TotalDeaths / countryPopulation) *
-                  1000000
+                  100
                 ).toFixed(2)
               }}%
             </p>
           </div>
           <div class="progress">
             <div
-              class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+              class="progress-bar bg-per-million progress-bar-striped progress-bar-animated"
               role="progressbar"
               aria-valuemin="0"
               aria-valuemax="100"
+              [ngStyle]="{ width: showBarValue('deadPerMillion') + '%' }"
             ></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-lg-6 row grid-margin stretch-card">
+  <div class="col-lg-6 row grid-margin stretch-card ml-2">
     <div class="card">
       <div class="card-body">
         <div class="container-world-heading">
@@ -253,6 +279,7 @@
         </div>
         <div>
           <canvas
+            class="graph-css"
             baseChart
             [chartType]="'line'"
             [datasets]="chartLineData"
@@ -266,7 +293,7 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-6 row grid-margin stretch-card">
+  <div class="col-lg-6 row grid-margin stretch-card ml-2">
     <div class="card">
       <div class="card-body">
         <div class="container-world-heading">
@@ -282,6 +309,7 @@
         </div>
         <div>
           <canvas
+            class="graph-css"
             baseChart
             [chartType]="'bar'"
             [datasets]="chartLineData"
@@ -297,7 +325,7 @@
   </div>
 </div>
 
-<div class="row" *ngIf="!predictiveModal">
+<!-- <div class="row" *ngIf="!predictiveModal">
   <div class="grid-margin stretch-card predictive-card">
     <div class="card">
       <div class="card-predictive">
@@ -341,4 +369,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

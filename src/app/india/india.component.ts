@@ -1,16 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-
+import * as _ from 'lodash';
 import { environment } from '@env/environment';
 import { ModalService } from '@app/modal/modal.service';
 import { CountryIndiaService } from '@app/india/india.service';
 import { finalize } from 'rxjs/operators';
+import { ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { fromEvent } from 'rxjs';
+import {
+  filter,
+  debounceTime,
+  distinctUntilChanged,
+  tap
+} from 'rxjs/operators';
+// import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-about',
   templateUrl: './india.component.html',
   styleUrls: ['./india.component.scss']
 })
-export class IndiaComponent implements OnInit {
+export class IndiaComponent implements OnInit, AfterViewInit {
   version: string | null = environment.version;
   date: any;
   public covidVideo = false;
@@ -23,26 +32,100 @@ export class IndiaComponent implements OnInit {
   countryData: any[];
   contactInfoData: any[];
   stateWiseData: any[];
-  totalTestingConducted: string;
+  stateDistrictWiseData: any[];
+  totalTestingConducted: any;
   hospAndBedData: any[];
+  finalArray: any[];
+  stateAndDistrictArrayCp: any[];
+  showData: any;
+  searchFilter = false;
+  stateAndDistrictArray: any[];
+  stateSearch = '';
+  // for search
+  @ViewChild('input', { static: true }) input: ElementRef;
 
   constructor(
     private modalService: ModalService,
     private countryIndiaService: CountryIndiaService
-  ) {}
+  ) // private cdr: ChangeDetectorRef
+  {}
+
+  sortSearchFunction(search: string, arr: any) {
+    let finalPayload;
+    let sortedArraySearch: any = [];
+    let abc = _.mapKeys(arr, function(key, value) {
+      let arr: any = [];
+      const stateValue = value;
+      let xyz = _.findKey(key, function(o) {
+        const stateValue = value;
+        if (typeof o === 'object') {
+          const data = Object.keys(o).map(v => v.toLowerCase());
+          data.map(val => {
+            if (val.includes(search)) {
+              const x = Object.entries(o).reduce((a, [key, value]) => {
+                a[key.toLowerCase()] = value;
+                return a;
+              }, {});
+              const payload = {
+                key: val,
+                value: x[val]
+              };
+              return x[val];
+              arr.push(payload);
+            }
+          });
+        }
+      });
+      if (arr.length > 0) {
+        finalPayload = {
+          state: stateValue,
+          result: arr
+        };
+        sortedArraySearch.push(finalPayload);
+      }
+    });
+    // console.log('arr2', sortedArraySearch)
+  }
+
+  ngAfterViewInit() {
+    // Detect change for color
+    // this.cdr.detectChanges();
+    // server-side search
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        filter(Boolean),
+        debounceTime(800),
+        distinctUntilChanged(),
+        tap((event: KeyboardEvent) => {
+          this.callSearchData(this.input.nativeElement.value);
+        })
+      )
+      .subscribe((data: any) => {});
+  }
+
+  callSearchData(searchString: string) {
+    this.stateSearch = searchString;
+    if (searchString === '') {
+      this.stateAndDistrictArray = this.stateAndDistrictArrayCp;
+      this.searchFilter = false;
+    } else {
+      // console.log('searchString', searchString);
+      this.stateAndDistrictArray = this.filterByValue(
+        this.stateAndDistrictArrayCp,
+        searchString
+      );
+      this.searchFilter = true;
+    }
+  }
 
   ngOnInit() {
     this.date = new Date();
-    console.log('this.date', this.date);
     const SELECTORS = {
       section: '[data-section]',
       scrollTo: '[data-scroll-to]',
       scrollDir: '[data-scroll-dir]'
     };
-    this.getCountryIndiaData();
-    this.getImportantContactInfo();
-    this.getTotalTestingInfo();
-    this.getTotalHospAndBedInfo();
+    this.getAllData();
     const sectionsArray = Array.from(
       document.querySelectorAll(SELECTORS.section)
     );
@@ -92,6 +175,36 @@ export class IndiaComponent implements OnInit {
     });
   }
 
+  getRandomColor() {
+    let color = Math.floor(0x1000000 * Math.random()).toString(16);
+    return '#' + ('000000' + color).slice(-6);
+  }
+
+  getAllData() {
+    this.getCountryIndiaData();
+    this.getTotalTestingInfo();
+    this.callStateDistrictWiseData();
+  }
+
+  callStateDistrictWiseData() {
+    this.countryIndiaService
+      .callStateDistrictWiseData()
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe(
+        (data: any) => {
+          this.stateDistrictWiseData = data;
+        },
+        (error: any) => {
+          // log.debug(`Select program error: ${error}`);
+          this.error = error;
+        }
+      );
+  }
+
   getCountryIndiaData() {
     this.countryIndiaService
       .callCountryIndiaData()
@@ -102,8 +215,8 @@ export class IndiaComponent implements OnInit {
       )
       .subscribe(
         (data: any) => {
-          this.countryData = data;
-          console.log('country data', data);
+          this.countryData = data.data;
+          this.getImportantContactInfo();
         },
         (error: any) => {
           // log.debug(`Select program error: ${error}`);
@@ -122,8 +235,8 @@ export class IndiaComponent implements OnInit {
       )
       .subscribe(
         (data: any) => {
-          this.contactInfoData = data;
-          console.log('contactInfoData data', this.contactInfoData);
+          this.contactInfoData = data.data;
+          this.getTotalHospAndBedInfo();
         },
         (error: any) => {
           // log.debug(`Select program error: ${error}`);
@@ -142,8 +255,7 @@ export class IndiaComponent implements OnInit {
       )
       .subscribe(
         (data: any) => {
-          this.totalTestingConducted = data;
-          console.log('totalTestingConducted data', this.totalTestingConducted);
+          this.totalTestingConducted = data.data;
         },
         (error: any) => {
           // log.debug(`Select program error: ${error}`);
@@ -162,14 +274,145 @@ export class IndiaComponent implements OnInit {
       )
       .subscribe(
         (data: any) => {
-          this.hospAndBedData = data;
-          console.log('hospAndBedData data', this.hospAndBedData);
+          this.hospAndBedData = data.data;
+          this.commonArrayFunction();
         },
         (error: any) => {
           // log.debug(`Select program error: ${error}`);
           this.error = error;
         }
       );
+  }
+
+  filterByValue(array: any, string: any) {
+    return array.filter((o: any) =>
+      Object.keys(o).some(
+        k =>
+          typeof o[k] === 'string' &&
+          o[k].toLowerCase().includes(string.toLowerCase())
+      )
+    );
+  }
+
+  mergeArrayObjects = (arr1: any, arr2: any) =>
+    arr1.map((itm: any) => ({
+      ...arr2.find((item: any) => item['location'] === itm['location']),
+      ...itm
+    }));
+
+  mergeArrayObjectsBasedOnInclude = (arr1: any, arr2: any) =>
+    arr1.map((itm: any) => ({
+      ...arr2.find((item: any) => itm['state'].includes(item['location'])),
+      ...itm
+    }));
+
+  changeKeyOfArray(arrayObj: any, oldKey: any) {
+    let newArray = arrayObj.map((o: any) => {
+      return Object.assign(
+        {
+          location: o[oldKey].split(' ')[0],
+          state: o[oldKey]
+        },
+        _.omit(o, oldKey)
+      );
+    });
+    return newArray;
+  }
+
+  public getCountryViaIp() {
+    this.countryIndiaService
+      .getIpLocation()
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe(
+        (data: any) => {
+          if (data.country_code2 === 'IN') {
+            this.callSearchData(data.state_prov);
+            const payload = {
+              country: data.country_name,
+              district: data.district,
+              state: data.state_prov,
+              data: true
+            };
+            localStorage.setItem('IndiaData', JSON.stringify(payload));
+          } else {
+            const payload = {
+              data: false
+            };
+            localStorage.setItem('IndiaData', JSON.stringify(payload));
+          }
+        },
+        (error: any) => {
+          // log.debug(`Select program error: ${error}`);
+          this.error = error;
+        }
+      );
+  }
+
+  checkUsersState() {
+    let stateData = JSON.parse(localStorage.getItem('IndiaData'));
+    if (stateData) {
+      if (stateData['data']) {
+        this.callSearchData(stateData.state);
+      } else {
+        this.getCountryViaIp();
+      }
+    } else {
+      this.getCountryViaIp();
+    }
+  }
+
+  mergeStateAndDistrictData(dataArray: any) {
+    let stateDistrictWiseArray: any[] = Object.keys(dataArray).map(
+      (key: any) => {
+        return {
+          state: key,
+          districts: dataArray[key]
+        };
+      }
+    );
+    this.stateAndDistrictArray = this.mergeArrayObjectsBasedOnInclude(
+      stateDistrictWiseArray,
+      this.finalArray
+    );
+    this.stateAndDistrictArrayCp = this.stateAndDistrictArray = this.stateAndDistrictArray.slice(
+      1
+    );
+    this.checkUsersState();
+    // console.log('mergeStateAndDistrictData', this.stateAndDistrictArray);
+  }
+
+  commonArrayFunction() {
+    const hospAndBedData = this.changeKeyOfArray(
+      this.hospAndBedData['regional'],
+      'state'
+    );
+    const contactInfoData = this.changeKeyOfArray(
+      this.contactInfoData['contacts']['regional'],
+      'loc'
+    );
+    const countryData = this.changeKeyOfArray(
+      this.countryData['regional'],
+      'loc'
+    );
+    const mergeHospAndContact = this.mergeArrayObjects(
+      hospAndBedData,
+      contactInfoData
+    );
+    this.finalArray = this.mergeArrayObjects(mergeHospAndContact, countryData);
+    this.mergeStateAndDistrictData(this.stateDistrictWiseData);
+    this.showData = true;
+  }
+
+  checkDistrictData(data: any) {
+    if (Object.keys(data).length > 1) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   videoDisplayType(id: string, status: boolean) {

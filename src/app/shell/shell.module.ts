@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from '@app/core';
 import { FooterComponent } from '@app/ui-components/footer/footer.component';
+import { ModalModule } from '@app/modal/modal.module';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { FooterComponent } from '@app/ui-components/footer/footer.component';
     RouterModule,
     FormsModule,
     HttpClientModule,
-    CoreModule
+    CoreModule,
+    ModalModule
   ],
   declarations: [
     HeaderComponent,

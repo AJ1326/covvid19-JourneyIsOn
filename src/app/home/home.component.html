@@ -1,3 +1,4 @@
+<app-spinner></app-spinner>
 <div class="row">
   <div class="col-md-4 grid-margin stretch-card" style="width: 100%;">
     <div class="card" *ngIf="summary">
@@ -57,9 +58,9 @@
               />
               <img
                 *ngIf="item.value !== 'World'"
-                src="https://www.countryflags.io/{{
+                src="https://flagcdn.com/32x24/{{
                   item.value.toLowerCase()
-                }}/shiny/64.png"
+                }}.png"
                 style="width:16px;vertical-align:middle"
               />
               <span style="vertical-align:middle; margin-left: .5em">{{
@@ -73,9 +74,9 @@
               >
                 <img
                   *ngIf="cntry.value !== 'World'"
-                  src="https://www.countryflags.io/{{
+                  src="https://flagcdn.com/32x24/{{
                     cntry.value.toLowerCase()
-                  }}/shiny/64.png"
+                  }}.png"
                   style="width:24px;position:absolute;top:1px;left:5px"
                 />
                 <img
@@ -310,15 +311,15 @@
   </div>
 </div>
 
-<jw-modal id="custom-modal-1" *ngIf="selectedCountryData">
+<jw-modal id="custom-modal-2" *ngIf="selectedCountryData">
   <div>
     <div class="dashboard-header">
       <div>
         <img
           class="img-flag-header"
-          src="https://www.countryflags.io/{{
-            selectedCountryData.value
-          }}/shiny/64.png"
+          src="https://flagcdn.com/32x24/{{
+            selectedCountryData.value.toLowerCase()
+          }}.png"
         />
       </div>
       <h3 style="flex-grow: 1; margin-left: 10px;">
@@ -326,7 +327,7 @@
       </h3>
       <i
         style="flex-grow: 0; margin-top: -15px; font-size: 24px;"
-        (click)="closeModal('custom-modal-1')"
+        (click)="closeModal('custom-modal-2')"
         class="mdi mdi-close text-danger icon-lg"
       ></i>
     </div>

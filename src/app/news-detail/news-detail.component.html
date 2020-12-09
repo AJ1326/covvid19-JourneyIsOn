@@ -31,7 +31,7 @@
 
 <main class="news-detail" id="news-detail-news-cards">
   <div *ngFor="let news of news; let index">
-    <header *ngIf="showDateHeader(news.publishedAt)">
+    <header *ngIf="news.publishedAt ? showDateHeader(news.publishedAt) : false">
       <time>
         <h5 class="news-published" id="date">
           {{ news.publishedAt | date: 'fullDate' }}
