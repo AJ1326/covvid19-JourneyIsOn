@@ -7,7 +7,7 @@ import { filter, map, switchMap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { Logger, I18nService, untilDestroyed } from '@app/core';
-import { PwaService } from './pwa.service';
+import { PwaService } from '@app/pwa.service';
 
 const log = new Logger('App');
 

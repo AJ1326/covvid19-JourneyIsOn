@@ -33,6 +33,7 @@ import { WhatToDoModule } from '@app/whatToDo/what-to-do.module';
 import { EconomyImpactModule } from '@app/economyImpact/economy-impact.module';
 import { MentallyFitModule } from '@app/mentally-fit/mentally-fit.module';
 import { IndiaModule } from '@app/india/india.module';
+import { PwaService } from '@app/pwa.service';
 
 @NgModule({
   imports: [
@@ -72,7 +73,7 @@ import { IndiaModule } from '@app/india/india.module';
     AppRoutingModule // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent],
-  providers: [],
+  providers: [PwaService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
