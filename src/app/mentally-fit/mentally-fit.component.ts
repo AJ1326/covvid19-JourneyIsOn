@@ -19,11 +19,11 @@ export class MentallyFitComponent implements OnInit {
 
   ngOnInit() {}
 
-  openVideo(id: string, status: boolean) {
+  openVideo(id: string) {
     this.modalService.open(id);
   }
 
-  closeVideo(id: string, status: boolean) {
+  closeVideo(id: string) {
     this.modalService.close(id);
   }
 }
