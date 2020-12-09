@@ -167,7 +167,7 @@ export class HomeComponent implements OnInit {
   }
 
   showDetailCountryData() {
-    this.openModal('custom-modal-2');
+    this.openModal('country-modal-2');
   }
 
   showNews() {

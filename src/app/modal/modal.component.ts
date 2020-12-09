@@ -21,11 +21,13 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   constructor(private modalService: ModalService, private el: ElementRef) {
     this.element = el.nativeElement;
+    console.log('this.element', this.element, el);
   }
 
   ngOnInit(): void {
     // ensure id attribute exists
     if (!this.id) {
+      console.log('modal this', this);
       console.error('modal must have an id');
       return;
     }
@@ -43,7 +45,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     console.log('this', this);
 
     // add self (this modal instance) to the modal service so it's accessible from controllers
-    this.modalService.add(this);
+    // this.modalService.add(this);
   }
 
   // remove self from modal service when component is destroyed

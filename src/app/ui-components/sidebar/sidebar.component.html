@@ -102,7 +102,7 @@
 
 <div (click)="toggleSidebar()" class="overlay-close"></div>
 
-<div class="modals">
+<div class="intiativeModal">
   <!-- the same view can be shown in more than one case -->
   <jw-modal id="initiative-modal">
     <div>
@@ -142,25 +142,5 @@
       </div>
     </div>
   </jw-modal>
-
-  <jw-modal id="about-me">
-    <div>
-      <div class="dashboard-header">
-        <i
-          (click)="closeModal('about-me')"
-          class="mdi mdi-close text-danger icon-lg"
-        ></i>
-      </div>
-      <iframe
-        style="width: 100%;
-            height: 650px;"
-        class="embed-responsive-item"
-        src="https://www.youtube.com/embed/E44kFkyl_Y8?rel=0"
-        allowfullscreen=""
-      >
-      </iframe>
-    </div>
-  </jw-modal>
-
   <!--default case when there are no matches -->
 </div>

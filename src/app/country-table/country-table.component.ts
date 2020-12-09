@@ -72,7 +72,7 @@ export class CountryTableComponent implements OnInit {
 
   showDetailCountryData(country_data: any) {
     this.selectedCountryDetails = country_data;
-    this.openModal('custom-modal-1');
+    this.openModal('country-modal');
   }
 
   openModal(id: string) {

@@ -128,7 +128,7 @@
   </ng-template>
 </p-table>
 
-<jw-modal id="custom-modal-1">
+<jw-modal id="country-modal">
   <div *ngIf="selectedCountryDetails">
     <div class="dashboard-header">
       <div>
@@ -148,8 +148,6 @@
         class="mdi mdi-close text-danger icon-lg"
       ></i>
     </div>
-    <!--    {{closePredictiveModal}}-->
-
     <app-country-wise-modal
       *ngIf="selectedCountryDetails && globalData"
       [selectedCountryDetails]="selectedCountryDetails"
