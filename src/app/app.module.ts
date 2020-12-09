@@ -39,7 +39,7 @@ import { PwaService } from '@app/pwa.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('./ngsw-worker.js', {
+    ServiceWorkerModule.register('/ngsw-worker.js', {
       enabled: environment.production
     }),
     FormsModule,
