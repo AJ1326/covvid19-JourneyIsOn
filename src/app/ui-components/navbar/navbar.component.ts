@@ -30,6 +30,5 @@ export class NavbarComponent implements OnInit {
   public toggleSidebar() {
     this.opened = !this.opened;
     this.messageSidebarOpened.emit(this.opened.toString());
-    console.log('set value navbar:', this.opened);
   }
 }
