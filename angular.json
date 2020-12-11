@@ -27,7 +27,9 @@
               "src/apple-touch-icon.png",
               "src/robots.txt",
               "src/manifest.json",
-              "src/assets"
+              "src/assets",
+              "src/_redirects",
+              "src/netlify.toml"
             ],
             "styles": [
               "node_modules/primeicons/primeicons.css",
@@ -117,7 +119,9 @@
               "src/apple-touch-icon.png",
               "src/robots.txt",
               "src/manifest.json",
-              "src/assets"
+              "src/assets",
+              "src/_redirects",
+              "src/netlify.toml"
             ]
           },
           "configurations": {
