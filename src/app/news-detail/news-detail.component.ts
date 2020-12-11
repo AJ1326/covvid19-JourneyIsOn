@@ -1,20 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { environment } from '@env/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NewsDetailService } from '@app/news-detail/news-detail.service';
 import { SpinnerService } from '@app/shared/spinner/spinner.service';
 
 const NewsAPI = require('newsapi');
-const newsapi = new NewsAPI('691885a2fb8f43b2bc520d944f892178', {
-  corsProxyUrl: 'https://cors-anywhere.herokuapp.com/'
-});
+// const newsapi = new NewsAPI('691885a2fb8f43b2bc520d944f892178', {
+//   corsProxyUrl: 'https://cors-anywhere.herokuapp.com/'
+// });
+const newsapi = new NewsAPI('691885a2fb8f43b2bc520d944f892178');
 
 @Component({
   selector: 'app-news-card',
   templateUrl: './news-detail.component.html',
   styleUrls: ['./news-detail.component.scss']
 })
-export class NewsDetailComponent implements OnInit {
+export class NewsDetailComponent implements OnInit, OnDestroy {
   version: string | null = environment.version;
   openNewsType = 1;
   newsType: any;
@@ -108,6 +109,10 @@ export class NewsDetailComponent implements OnInit {
     private router: Router,
     public spinner: SpinnerService
   ) {}
+
+  ngOnDestroy(): void {
+    this.spinner.hide();
+  }
 
   ngOnInit() {
     const country = JSON.parse(localStorage.getItem('selectedCntry'));
