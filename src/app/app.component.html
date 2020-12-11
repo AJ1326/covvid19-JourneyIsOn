@@ -1,4 +1,6 @@
 <router-outlet></router-outlet>
-<button *ngIf="Pwa.promptEvent" (click)="installPwa()">
-  Install
-</button>
+<div *ngIf="Pwa.promptEvent">
+  <a class="btn-install" (click)="installPwa()">
+    <i class="fa fa-download" aria-hidden="true"></i>
+  </a>
+</div>

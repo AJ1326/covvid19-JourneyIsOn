@@ -230,7 +230,7 @@ export class CountryWiseModalComponent implements OnInit, OnChanges {
     this.mortalityRate =
       this.selectedCountryData['TotalDeaths'] /
       this.selectedCountryData['TotalConfirmed'];
-    console.log('this.mortalityRate', this.mortalityRate);
+    // console.log('this.mortalityRate', this.mortalityRate);
   }
 
   // MortalityRate overall

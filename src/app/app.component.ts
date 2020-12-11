@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  Renderer2
+} from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,15 +22,21 @@ const log = new Logger('App');
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleService: Title,
     private translateService: TranslateService,
     private i18nService: I18nService,
-    public Pwa: PwaService
+    public Pwa: PwaService,
+    private renderer: Renderer2
   ) {}
+
+  ngAfterViewInit() {
+    let loader = this.renderer.selectRootElement('#initial-loader');
+    this.renderer.setStyle(loader, 'display', 'none');
+  }
 
   ngOnInit() {
     // Setup logger

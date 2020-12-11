@@ -40,7 +40,7 @@ export class ModalComponent implements OnInit, OnDestroy {
       }
     });
 
-    console.log('this', this);
+    this.modalService.add(this);
 
     // add self (this modal instance) to the modal service so it's accessible from controllers
     // this.modalService.add(this);

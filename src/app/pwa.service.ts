@@ -8,10 +8,8 @@ export class PwaService {
     window.addEventListener('beforeinstallprompt', event => {
       this.promptEvent = event;
     });
-    // swUpdate.available.subscribe(event => {
-    //   if (askUserToUpdate()) {
-    //     window.location.reload();
-    //   }
-    // });
+    swUpdate.available.subscribe(event => {
+      window.location.reload();
+    });
   }
 }

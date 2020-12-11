@@ -109,12 +109,10 @@ export class NewsDetailComponent implements OnInit {
 
   ngOnInit() {
     const country = JSON.parse(localStorage.getItem('selectedCntry'));
-    this.countryISO = country['value'] ? country['value'] : 'covid';
+    this.countryISO = country ? country['value'] : 'covid';
     this.route.params.subscribe(params => {
       this.newsType = params['name'];
       this.callNewsAPI(this.newsType);
-      console.log('this.newsType', this.newsType);
-      console.log('this.countryISO', this.countryISO);
     });
   }
 
@@ -142,7 +140,6 @@ export class NewsDetailComponent implements OnInit {
     if (isCountryPresent && isDiffNews) {
       this.callSpecificNewsApi(this.newsType);
     } else {
-      console.log('calling showNews');
       this.callWorldTopNews(newsType);
     }
   }
@@ -157,7 +154,6 @@ export class NewsDetailComponent implements OnInit {
       })
       .then((response: any) => {
         if (response.totalResults === 0 || response.status !== 'ok') {
-          console.log('calling response');
           this.callWorldTopNews(this.newsType);
         } else {
           this.news = response.articles;

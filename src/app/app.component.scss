@@ -7,3 +7,23 @@
   font-size: 1rem;
   font-family: $type-1;
 }
+
+.btn-install {
+  display: block;
+  height: 50px;
+  background-color: #43b7dc;
+  width: 50px;
+  position: fixed;
+  right: 10px;
+  border-radius: 50%;
+  bottom: 10px;
+}
+
+.btn-install i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  color: white;
+  font-size: 20px;
+}
