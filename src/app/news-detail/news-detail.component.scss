@@ -497,3 +497,22 @@ input[type="button"].news-detail-exit:active {
   width: 100% !important;
   height: 550px !important;
 }
+
+.d-flex-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.d-flex-col img {
+  width: 600px;
+  margin-top: 40px;
+}
+
+.d-flex-col span {
+  line-height: 30px;
+  font-size: 18px;
+  margin-top: 30px;
+  font-weight: 200;
+}

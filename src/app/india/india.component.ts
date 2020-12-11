@@ -41,6 +41,8 @@ export class IndiaComponent implements OnInit, AfterViewInit {
   searchFilter = false;
   stateAndDistrictArray: any[];
   stateSearch = '';
+  showUserData = false;
+  showUserIPData: any;
   // for search
   @ViewChild('input', { static: true }) input: ElementRef;
 
@@ -329,31 +331,43 @@ export class IndiaComponent implements OnInit, AfterViewInit {
         (data: any) => {
           if (data.country_code2 === 'IN') {
             this.callSearchData(data.state_prov);
-            const payload = {
+            this.showUserIPData = {
               country: data.country_name,
               district: data.district,
               state: data.state_prov,
               data: true
             };
-            localStorage.setItem('IndiaData', JSON.stringify(payload));
+            localStorage.setItem(
+              'IndiaData',
+              JSON.stringify(this.showUserIPData)
+            );
+            this.showUserData = true;
           } else {
             const payload = {
               data: false
             };
             localStorage.setItem('IndiaData', JSON.stringify(payload));
+            this.showUserData = false;
           }
         },
         (error: any) => {
           // log.debug(`Select program error: ${error}`);
+          this.showUserData = false;
           this.error = error;
         }
       );
+  }
+
+  hideBox() {
+    this.showUserData = false;
   }
 
   checkUsersState() {
     let stateData = JSON.parse(localStorage.getItem('IndiaData'));
     if (stateData) {
       if (stateData['data']) {
+        this.showUserIPData = stateData;
+        this.showUserData = true;
         this.callSearchData(stateData.state);
       } else {
         this.getCountryViaIp();

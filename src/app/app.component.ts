@@ -44,6 +44,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       Logger.enableProductionMode();
     }
 
+    this.router.events.subscribe(evt => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0);
+    });
+
     log.debug('init');
 
     // Setup translations

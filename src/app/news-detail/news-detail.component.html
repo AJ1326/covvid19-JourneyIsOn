@@ -1,3 +1,4 @@
+<app-spinner></app-spinner>
 <div>
   <div class="card card-weather">
     <div class="card-body transmission-rate-section symptom-heading-section">
@@ -29,7 +30,7 @@
   </div>
 </div>
 
-<main class="news-detail" id="news-detail-news-cards">
+<main class="news-detail" id="news-detail-news-cards" *ngIf="!newsApiFailed">
   <div *ngFor="let news of news; let index">
     <header *ngIf="news.publishedAt ? showDateHeader(news.publishedAt) : false">
       <time>
@@ -57,3 +58,14 @@
     </div>
   </div>
 </main>
+
+<div *ngIf="newsApiFailed" class="d-flex-col">
+  <img src="../../assets/images/news/no-news.svg" />
+  <span
+    >Sorry guys, Number of request are higher at this time. Currently using free
+    service for this.</span
+  >
+  <span style="cursor: pointer;" routerLink="/home-dashboard"
+    >Stay safe and healthy. Checkout home</span
+  >
+</div>

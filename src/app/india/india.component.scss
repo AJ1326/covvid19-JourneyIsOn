@@ -583,7 +583,8 @@ button:focus {
 // Search bar
 .search-bar-dropdown {
   width: 100%;
-  height: 200px;
+  padding: 10px;
+  cursor: pointer;
   right: 0;
   left: 0;
   background-color: white;
@@ -640,4 +641,18 @@ button:focus {
   .box-grid-district {
     grid-column: span 1;
   }
+}
+
+.show-user-data {
+  font-weight: 200;
+  line-height: 30px;
+}
+.show-user-data strong {
+  font-weight: 600;
+}
+.close-box-info {
+  color: red;
+  font-size: 12px;
+  line-height: 30px;
+  font-weight: 200;
 }

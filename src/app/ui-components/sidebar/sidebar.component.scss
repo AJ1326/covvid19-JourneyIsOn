@@ -246,3 +246,9 @@
   flex-grow: 0;
   font-size: 28px;
 }
+
+@media screen and (max-width: 991px) {
+  .dfc span {
+    padding: 1rem 1rem;
+  }
+}

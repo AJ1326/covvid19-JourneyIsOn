@@ -14,14 +14,17 @@
       <i class="fa fa-search" aria-hidden="true"></i>
     </div>
   </header>
-  <!-- <div class="search-bar-dropdown">
-    <p>Arunachal</p>
-    <p>Arunachal</p>
-    <p>Arunachal</p>
-    <p>Arunachal</p>
-    <p>Arunachal</p>
-    <p>Arunachal</p>
-  </div> -->
+  <div class="search-bar-dropdown" *ngIf="showUserData" (click)="hideBox()">
+    <div class="show-user-data">
+      You are in <strong>{{ showUserIPData['district'] }}</strong> in
+      <strong>{{ showUserIPData['state'] }}.</strong>
+      <span
+        >Below are the cases near you and other important information.
+        #StaySafeAndUpdated #JourneyIsOn</span
+      >
+    </div>
+    <span class="close-box-info">*Click to close box.</span>
+  </div>
 
   <main class="main" *ngIf="showData">
     <article class="section" id="vienna" data-section *ngIf="!searchFilter">

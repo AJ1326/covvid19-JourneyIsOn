@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '@env/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NewsDetailService } from '@app/news-detail/news-detail.service';
+import { SpinnerService } from '@app/shared/spinner/spinner.service';
 
 const NewsAPI = require('newsapi');
 const newsapi = new NewsAPI('691885a2fb8f43b2bc520d944f892178', {
@@ -104,7 +105,8 @@ export class NewsDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private newsDetailService: NewsDetailService,
-    private router: Router
+    private router: Router,
+    public spinner: SpinnerService
   ) {}
 
   ngOnInit() {
@@ -125,6 +127,7 @@ export class NewsDetailComponent implements OnInit {
   }
 
   public callNewsAPI(newsType: any) {
+    this.spinner.show();
     this.isCountryPresent = this.isTypePresentInArray(
       this.newsCountryCode,
       this.countryISO
@@ -156,6 +159,8 @@ export class NewsDetailComponent implements OnInit {
         if (response.totalResults === 0 || response.status !== 'ok') {
           this.callWorldTopNews(this.newsType);
         } else {
+          this.spinner.hide();
+          this.newsApiFailed = false;
           this.news = response.articles;
         }
         /*
@@ -164,6 +169,10 @@ export class NewsDetailComponent implements OnInit {
           sources: [...]
         }
       */
+      })
+      .catch((error: any) => {
+        this.newsApiFailed = true;
+        this.spinner.hide();
       });
   }
 
@@ -192,7 +201,9 @@ export class NewsDetailComponent implements OnInit {
         sortBy: 'relevancy'
       })
       .then((response: any) => {
+        this.spinner.hide();
         if (response.status === 'ok') {
+          this.newsApiFailed = false;
           this.news = response.articles;
         } else {
           this.newsApiFailed = true;
@@ -203,6 +214,10 @@ export class NewsDetailComponent implements OnInit {
           articles: [...]
         }
       */
+      })
+      .catch((error: any) => {
+        this.newsApiFailed = true;
+        this.spinner.hide();
       });
   }
 
