@@ -5,10 +5,10 @@ import { NewsDetailService } from '@app/news-detail/news-detail.service';
 import { SpinnerService } from '@app/shared/spinner/spinner.service';
 
 const NewsAPI = require('newsapi');
-// const newsapi = new NewsAPI('691885a2fb8f43b2bc520d944f892178', {
-//   corsProxyUrl: 'https://cors-anywhere.herokuapp.com/'
-// });
-const newsapi = new NewsAPI('691885a2fb8f43b2bc520d944f892178');
+const newsapi = new NewsAPI('691885a2fb8f43b2bc520d944f892178', {
+  corsProxyUrl: 'https://cors-anywhere.herokuapp.com/'
+});
+// const newsapi = new NewsAPI('691885a2fb8f43b2bc520d944f892178');
 
 @Component({
   selector: 'app-news-card',
