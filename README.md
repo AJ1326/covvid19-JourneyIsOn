@@ -1,7 +1,11 @@
 # covid19
 
-This project was generated with [ngX-Rocket](https://github.com/ngx-rocket/generator-ngx-rocket/)
-version 7.1.0
+Covid has impacted us in many ways. Whether it's economy, job, anxiety, staying away, lost their loved ones, some are ill. We all are having a hard time, in one way or another. But there is always a positive aspect to every negative situation out there. Such times demand better you.
+Doctors, nurses, delivery guys, and every frontline worker today is doing what is required. And being a developer, informing and making people aware is the least that I can do.
+#ConfinedButNotBroken
+
+My mission is to make people aware of the current situation and its aftermath. So, we all can take effective measures for the global pandemic that we are facing today and help the one in need. I tried to bring all the information together that made me fight through this time. We all are in this together.
+#WeAreTogether #JourneyIsOn
 
 # Getting started
 
@@ -72,19 +76,6 @@ Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app 
 any of the source files.
 You should not use `ng serve` directly, as it does not use the backend proxy configuration by default.
 
-## Code scaffolding
-
-Run `npm run generate -- component <name>` to generate a new component. You can also use
-`npm run generate -- directive|pipe|service|class|module`.
-
-If you have installed [angular-cli](https://github.com/angular/angular-cli) globally with `npm install -g @angular/cli`,
-you can also use the command `ng generate` directly.
-
-## Additional tools
-
-Tasks are mostly based on the `angular-cli` tool. Use `ng help` to get more help or go check out the
-[Angular-CLI README](https://github.com/angular/angular-cli).
-
 ## Code formatting
 
 All `.ts`, `.js` & `.scss` files in this project are formatted automatically using [Prettier](https://prettier.io),
@@ -94,11 +85,6 @@ A pre-commit git hook has been configured on this project to automatically forma
 (pretty-quick)[https://github.com/azz/pretty-quick], so you don't have to care for it.
 
 You can also force code formatting by running the command `npm run prettier`.
-
-# What's in the box
-
-The app template is based on [HTML5](http://whatwg.org/html), [TypeScript](http://www.typescriptlang.org) and
-[Sass](http://sass-lang.com). The translation files use the common [JSON](http://www.json.org) format.
 
 #### Tools
 
