@@ -25,7 +25,7 @@ export class CountryIndiaService {
 
   callStateDistrictWiseData(): Observable<any> {
     return this.http.get(
-      'https://api.covid19india.org/state_district_wise.json',
+      'https://data.covid19india.org/state_district_wise.json',
       {}
     );
   }
